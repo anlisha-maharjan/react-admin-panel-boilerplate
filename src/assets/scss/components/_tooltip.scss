@@ -1,0 +1,36 @@
+.default-tooltip {
+    .MuiTooltip-tooltip {
+        padding: 0.8rem 1.3rem;
+        box-shadow: 0 3px 6px rgba($color: #000000, $alpha: 0.14);
+        background-color: lighten($color: $primaryColor, $amount: 20);
+        color: darken($color: $primaryColor, $amount: 45);
+        font-weight: 400;
+        font-size: 1.2rem;
+
+        .MuiTooltip-arrow {
+            color: lighten($color: $primaryColor, $amount: 20);
+        }
+    }
+}
+
+.chart-tooltip {
+    padding: 0.8rem 2.6rem;
+    border-radius: 30px;
+    background-color: $primaryColor;
+    color: #ffffff;
+    text-align: center;
+
+    span {
+        display: block;
+
+        &.label {
+            font-weight: 500;
+            font-size: 2rem;
+        }
+
+        &.desc {
+            color: rgba($color: #ffffff, $alpha: 0.75);
+            font-size: 1.4rem;
+        }
+    }
+}

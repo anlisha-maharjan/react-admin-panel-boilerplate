@@ -1,0 +1,134 @@
+/* --- Fonts Styles --- */
+.font-Tangerine {
+    font-family: 'Italianno', cursive !important;
+}
+
+
+.font {
+    &-size {
+        &-default {
+            font-size: 1.4rem !important;
+        }
+
+        &-md {
+            font-size: 1.6rem !important;
+
+            &-2x {
+                font-size: 2.4rem !important;
+            }
+        }
+
+        &-lg {
+            font-size: 2rem !important;
+
+            &-2x {
+                font-size: 2.2rem !important;
+            }
+        }
+
+        &-xl {
+            font-size: 2.8rem !important;
+        }
+    }
+
+    &-weight {
+        &-light {
+            font-weight: 300 !important;
+        }
+
+        &-normal {
+            font-weight: 400 !important;
+        }
+
+        &-medium {
+            font-weight: 500 !important;
+        }
+
+        &-semi-bold {
+            font-weight: 600 !important;
+        }
+
+        &-bold {
+            font-weight: bold !important;
+        }
+    }
+}
+
+/* --- Text Style Helper Class --- */
+.text {
+
+    &-center {
+        text-align: center !important;
+    }
+
+    &-left {
+        text-align: left !important;
+    }
+
+    &-right {
+        text-align: right !important;
+    }
+
+    &-decoration-underline {
+        text-decoration: underline !important;
+    }
+
+    &-decoration-none {
+        text-decoration: none !important;
+    }
+
+    &-ellipsis {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.line-2 {
+            @include multiLineEllipsis(2);
+        }
+    }
+
+    &-transform {
+        &-none {
+            text-transform: none !important;
+        }
+
+        &-capitalize {
+            text-transform: capitalize !important;
+        }
+
+        &-uppercase {
+            text-transform: uppercase !important;
+        }
+    }
+}
+
+.word-break {
+    &-all {
+        word-break: break-all;
+    }
+
+    &-word {
+        word-break: break-word;
+    }
+}
+
+.white-space {
+    &-normal {
+        white-space: normal !important;
+    }
+
+    &-nowrap {
+        white-space: nowrap !important;
+    }
+
+    &-prewrap {
+        white-space: pre-wrap !important;
+    }
+}
+
+.hover-primary {
+    &:hover{
+        color: $primaryColor;
+    }
+}

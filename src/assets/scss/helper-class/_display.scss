@@ -1,0 +1,165 @@
+/* --- Dispay Options --- */
+.d {
+    &-block {
+        display: block !important;
+    }
+
+    &-inline-block {
+        display: inline-block !important;
+    }
+
+    &-flex {
+        display: flex !important;
+    }
+
+    &-inline-flex {
+        display: inline-flex !important;
+    }
+
+    &-none {
+        display: none !important;
+    }
+}
+
+/* --- Flex Box Properties --- */
+.flex-direction {
+    &-column {
+        flex-direction: column;
+    }
+
+    &-row {
+        flex-direction: row;
+
+        &-reverse {
+            flex-direction: row-reverse;
+        }
+    }
+}
+
+.flex {
+    flex: 1;
+
+    &-wrap {
+        flex-wrap: wrap;
+    }
+
+    &-no-wrap {
+        flex-wrap: nowrap;
+    }
+
+    &-shrink-0 {
+        flex-shrink: 0;
+    }
+}
+
+.justify {
+    &-content {
+        &-between {
+            justify-content: space-between !important;
+        }
+
+        &-start {
+            justify-content: flex-start !important;
+        }
+
+        &-center {
+            justify-content: center !important;
+        }
+
+        &-end {
+            justify-content: flex-end !important;
+        }
+
+        &-around {
+            justify-content: space-around !important;
+        }
+    }
+
+    &-self {
+        &-start {
+            justify-self: flex-start !important;
+        }
+
+        &-center {
+            justify-self: center !important;
+        }
+
+        &-end {
+            justify-self: flex-end !important;
+        }
+    }
+}
+
+.align {
+    &-items {
+        &-start {
+            align-items: flex-start !important;
+        }
+
+        &-center {
+            align-items: center !important;
+        }
+
+        &-end {
+            align-items: flex-end !important;
+        }
+    }
+
+    &-self {
+        &-start {
+            align-self: flex-start !important;
+        }
+
+        &-center {
+            align-self: center !important;
+        }
+
+        &-end {
+            align-self: flex-end !important;
+        }
+    }
+}
+
+.vertical-align {
+    &-top {
+        vertical-align: top !important;
+    }
+
+    &-middle {
+        vertical-align: middle !important;
+    }
+
+    &-bottom {
+        vertical-align: bottom !important;
+    }
+}
+
+/* --- Visibiltiy & OverFlow --- */
+.overflow-auto {
+    overflow: auto !important;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.overflow-visible {
+    overflow: visible !important;
+}
+
+.invisible {
+    visibility: hidden !important;
+}
+
+/* --- Opacity --- */
+@for $i from 0 through 10 {
+    .opacity-#{$i} {
+        opacity: calc(#{$i} * 0.1) !important;
+    }
+
+    .opacity-child-#{$i} {
+        * {
+            opacity: calc(#{$i} * 0.1) !important;
+        }
+    }
+}

@@ -1,0 +1,94 @@
+@for $i from 0 through 5 {
+    .border-#{$i} {
+        border: #{$i}px solid !important;
+    }
+
+    // top
+    .border-top-#{$i} {
+        border-top: #{$i}px solid !important;
+    }
+
+    // left
+    .border-left-#{$i} {
+        border-left: #{$i}px solid !important;
+    }
+
+    // bottom
+    .border-bottom-#{$i} {
+        border-bottom: #{$i}px solid !important;
+    }
+
+    //right
+    .border-right-#{$i} {
+        border-right: #{$i}px solid !important;
+    }
+}
+
+.border-color {
+    &-primary {
+        border-color: $primaryColor !important;
+
+        &-dark {
+            border-color: darken($color: $primaryColor, $amount: 25) !important;
+        }
+    }
+
+    &-secondary {
+        border-color: $secondaryColor !important;
+    }
+
+    &-success {
+        border-color: $successColor !important;
+    }
+
+    &-danger {
+        border-color: $errorColor !important;
+    }
+
+    &-white {
+        border-color: #fff !important;
+    }
+
+    &-grey {
+        border-color: $grey !important;
+    }
+
+    &-light-grey {
+        border-color: #e4e4e4 !important;
+    }
+
+    &-dark-grey {
+        border-color: #393939 !important;
+    }
+
+    &-fade-blue {
+        border-color: #eaf0f9 !important;
+    }
+
+    &-transparent {
+        border-color: transparent !important;
+    }
+}
+
+// border radius
+.border-rad {
+    &-0 {
+        border-radius: 0 !important;
+    }
+
+    &-4 {
+        border-radius: 4px !important;
+    }
+
+    &-10 {
+        border-radius: 10px !important;
+    }
+
+    &-30 {
+        border-radius: 30px !important;
+    }
+
+    &-50 {
+        border-radius: 50% !important;
+    }
+}

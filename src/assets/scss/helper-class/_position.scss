@@ -1,0 +1,60 @@
+/* --- Positions --- */
+.pos {
+    &-relative {
+        position: relative !important;
+    }
+
+    &-absolute {
+        position: absolute !important;
+    }
+
+    &-fixed {
+        position: fixed !important;
+    }
+
+    &-sticky {
+        position: sticky !important;
+    }
+
+    &-static {
+        position: static !important;
+    }
+
+    &-top {
+        @for $i from 0 through 100 {
+            &-per-#{$i} {
+                top: calc(#{$i} * 1%) !important;
+            }
+        }
+
+        @for $i from 0 through 100 {
+            &-neg-#{$i} {
+                top: -#{$i}rem !important;
+            }
+        }
+    }
+
+    &-bottom {
+        @for $i from 0 through 100 {
+            &-per-#{$i} {
+                bottom: calc(#{$i} * 1%) !important;
+            }
+        }
+    }
+
+    &-left {
+        @for $i from 0 through 100 {
+            &-per-#{$i} {
+                left: calc(#{$i} * 1%) !important;
+            }
+        }
+    }
+
+    &-right {
+        @for $i from 0 through 100 {
+            &-per-#{$i} {
+                right: calc(#{$i} * 1%) !important;
+            }
+        }
+    }
+}

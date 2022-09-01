@@ -1,0 +1,15 @@
+.translate-y {
+    @for $i from 0 through 5 {
+        &-#{$i} {
+            transform: translateY(#{$i}rem) !important;
+        }
+    }
+}
+
+.scale {
+    @for $i from 10 through 100 {
+        &-#{$i} {
+            transform: scale(calc(#{$i} / 100)) !important;
+        }
+    }
+}
