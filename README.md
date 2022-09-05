@@ -2,18 +2,19 @@
 
 Axon CMS was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Required
+## Features
+- Authentication modules such as Login, Forgot password and Reset password
+- User management module
+- Idle timeout logout
+## Requirements
 - Node
 - Node package manager (npm)
 
-## Clone
-- Checkout to dev branch
-
-## Setting 
+## Getting started 
 - npm install
 - Copy .env.example to .env
 
-## Available Scripts
+## Available scripts
 
 In the project directory, you can run:
 
