@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Mui from "@mui/material";
+import { IdleTimeoutManager } from "idle-timer-manager";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Outlet } from "react-router-dom";
@@ -34,6 +35,8 @@ const Layout = (props) => {
     }
   };
 
+  const _onIdle = () => {}
+
   const checkSmallDevices = () => {
     if (isWidthUpLg) {
       // if (Mui.isWidthUp("lg", this.props.width)) {
@@ -48,6 +51,13 @@ const Layout = (props) => {
 
   useEffect(() => {
     checkSmallDevices();
+    const manager = new IdleTimeoutManager({
+      timeout: 600, // 10 min
+      onExpired: (time) => {
+        _onIdle();
+      },
+    });
+
     // Set Side Nav Layout Colors
     document.documentElement.style.setProperty("--side-nav-bg", sideNavConfig.bgColor);
     document.documentElement.style.setProperty("--side-nav-text-color", sideNavConfig.textColor);
@@ -59,6 +69,10 @@ const Layout = (props) => {
     document.documentElement.style.setProperty("--toolbar-bg", toolBarConfig.bgColor);
     document.documentElement.style.setProperty("--toolbar-text-color", toolBarConfig.textColor);
     document.documentElement.style.setProperty("--toolbar-icon-color", toolBarConfig.iconColor);
+
+    return () => {
+      manager.clear();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

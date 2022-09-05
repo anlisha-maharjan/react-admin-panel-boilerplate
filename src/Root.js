@@ -33,7 +33,7 @@ export default function Root() {
             <Route path="*" element={<NotFoundView />} />
           </Route>
           <Route path="/logout" element={<LogoutView />} />
-          <Route path="/" element={!isAuthorized ? <Navigate to="/auth/login" /> : <Layout />}>
+          <Route path="/" element={!isAuthorized ? <Navigate from="/" to="/auth/login" /> : <Layout />}>
             <Route index element={<Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={<DashboardView />} />
             <Route path="/user" element={<UserView />} />
