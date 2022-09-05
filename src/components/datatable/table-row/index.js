@@ -1,10 +1,12 @@
 import React from "react";
 import * as Mui from "@mui/material";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 import Action from "./action";
 import UserAvatarCell from "./user-avatar-cell";
 
 const TableRow = (props) => {
+  const navigate = useNavigate();
   const {
     isItemSelected,
     labelId,
@@ -24,7 +26,6 @@ const TableRow = (props) => {
     route,
     actionStyle,
     enableCheckbox,
-    history,
     enableRowClick,
   } = props;
 
@@ -41,9 +42,7 @@ const TableRow = (props) => {
         <Mui.TableCell
           padding="checkbox"
           className={`${enableRowClick ? "pointer" : ""}`}
-          onClick={() =>
-            enableRowClick ? history.push(`${route}/view/${row?.id}`) : ""
-          }
+          onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
         >
           <Mui.Checkbox
             onClick={(event) => handleClick(event, row.id)}
@@ -62,11 +61,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   <UserAvatarCell data={row} />
                 </Mui.TableCell>
@@ -76,11 +71,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["vehicleType"] ? row["vehicleType"]["name"] : ""}
                 </Mui.TableCell>
@@ -90,11 +81,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["role"]?.["name"] || ""}
                 </Mui.TableCell>
@@ -104,11 +91,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["vehicleCategory"]?.["name"] || ""}
                 </Mui.TableCell>
@@ -118,18 +101,14 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   <span
-                    className={`text-transform-capitalize status-bg ${
-                      row[column.id] === "pending" ? "warn" : ""
-                    } ${row[column.id] === "cancelled" ? "danger" : ""} ${
-                      row[column.id] === "confirmed" ? "success" : ""
-                    } ${row[column.id] === "completed" ? "disabled" : ""}`}
+                    className={`text-transform-capitalize status-bg ${row[column.id] === "pending" ? "warn" : ""} ${
+                      row[column.id] === "cancelled" ? "danger" : ""
+                    } ${row[column.id] === "confirmed" ? "success" : ""} ${
+                      row[column.id] === "completed" ? "disabled" : ""
+                    }`}
                   >
                     {row[column.id]}
                   </span>
@@ -140,17 +119,9 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
-                  <span
-                    className={`text-transform-capitalize status-bg ${
-                      row["status"] ? "success" : "warn"
-                    }`}
-                  >
+                  <span className={`text-transform-capitalize status-bg ${row["status"] ? "success" : "warn"}`}>
                     {row["status"] ? "Active" : "Inactive"}
                   </span>
                 </Mui.TableCell>
@@ -160,11 +131,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   ${row["minPrice"]}
                 </Mui.TableCell>
@@ -174,11 +141,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["percent"]}%
                 </Mui.TableCell>
@@ -188,18 +151,12 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   <span
-                    className={`text-transform-capitalize status-bg ${
-                      row[column.id] === "hold" ? "disabled" : ""
-                    } ${row[column.id] === "deposit" ? "warn" : ""} ${
-                      row[column.id] === "paid" ? "success" : ""
-                    }`}
+                    className={`text-transform-capitalize status-bg ${row[column.id] === "hold" ? "disabled" : ""} ${
+                      row[column.id] === "deposit" ? "warn" : ""
+                    } ${row[column.id] === "paid" ? "success" : ""}`}
                   >
                     {row[column.id]}
                   </span>
@@ -210,11 +167,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {moment(row["pickupDate"]).format("MMM DD, YYYY")}
                 </Mui.TableCell>
@@ -224,11 +177,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["type"] === "distance" ? "Point to Point" : null}
                   {row["type"] === "hourly" ? "Hourly" : null}
@@ -240,15 +189,9 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
-                  {row["createdAt"]
-                    ? moment(row["createdAt"]).format("MMM DD, YYYY HH:mm")
-                    : ""}
+                  {row["createdAt"] ? moment(row["createdAt"]).format("MMM DD, YYYY HH:mm") : ""}
                 </Mui.TableCell>
               );
             case "startDate":
@@ -256,17 +199,12 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["startDate"]
-                    ? moment(
-                        row["startDate"] + " " + row["startTime"],
-                        "YYYY-MM-DD HH:mm:ss"
-                      ).format("MMM DD, YYYY HH:mm")
+                    ? moment(row["startDate"] + " " + row["startTime"], "YYYY-MM-DD HH:mm:ss").format(
+                        "MMM DD, YYYY HH:mm"
+                      )
                     : ""}
                 </Mui.TableCell>
               );
@@ -275,17 +213,10 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["endDate"]
-                    ? moment(
-                        row["endDate"] + " " + row["endTime"],
-                        "YYYY-MM-DD HH:mm:ss"
-                      ).format("MMM DD, YYYY HH:mm")
+                    ? moment(row["endDate"] + " " + row["endTime"], "YYYY-MM-DD HH:mm:ss").format("MMM DD, YYYY HH:mm")
                     : ""}
                 </Mui.TableCell>
               );
@@ -294,11 +225,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   key={i}
                   className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["firstName"]} {row["lastName"]}
                 </Mui.TableCell>
@@ -308,11 +235,7 @@ const TableRow = (props) => {
                 <Mui.TableCell
                   className={`${enableRowClick ? "pointer" : ""}`}
                   key={i}
-                  onClick={() =>
-                    enableRowClick
-                      ? history.push(`${route}/view/${row?.id}`)
-                      : ""
-                  }
+                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row[column.id]}
                 </Mui.TableCell>

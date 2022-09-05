@@ -194,7 +194,6 @@ export default function DataTable(props) {
                           route={props.route}
                           actionStyle={actionStyle}
                           enableCheckbox={props.enableCheckbox}
-                          history={props?.history}
                           enableRowClick={enableRowClick}
                         />
                       );
