@@ -1,58 +1,59 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getUserList, deleteUser, deleteMultipleUser, resetUser } from "src/reduxs/actions";
 import DataTable from "src/components/datatable";
 import Breadcrumb from "src/components/breadcrumb";
 import { Alert } from "src/components/dialog";
 
-class UserList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      deleteId: null,
-      deleteIds: null,
-      openAlert: false,
-      openAlert1: false,
-    };
-    this.searchFields = "email:like;first_name:like;last_name:like;role.name:like;";
-  }
+const UserList = (props) => {
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleteIds, setDeleteIds] = useState(null);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [openAlert1, setOpenAlert1] = useState(false);
 
-  componentDidMount() {
-    this.props.getUserList({});
-  }
+  const searchFields = "email:like;first_name:like;last_name:like;role.name:like;";
 
-  onDelete = () => {
-    if (!this.props.loading1) {
-      this.props.deleteUser(this.state.deleteId);
+  useEffect(() => {
+    props.getUserList({});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onDelete = () => {
+    if (!props.loading1) {
+      props.deleteUser(deleteId);
     }
   };
 
-  onDeleteAll = () => {
-    if (!this.props.loading1) {
-      this.props.deleteMultipleUser(this.state.deleteIds);
+  const onDeleteAll = () => {
+    if (!props.loading1) {
+      props.deleteMultipleUser(deleteIds);
     }
   };
 
-  handleOpenAlert = (id) => {
-    this.setState({ openAlert: true, deleteId: id });
+  const handleOpenAlert = (id) => {
+    setDeleteId(id);
+    setOpenAlert(true);
   };
 
-  handleCloseAlert = () => {
-    this.setState({ openAlert: false, deleteId: null });
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
+    setDeleteId(null);
   };
 
-  handleOpenAlert1 = (ids) => {
-    this.setState({ openAlert1: true, deleteIds: ids });
+  const handleOpenAlert1 = (ids) => {
+    setOpenAlert1(true);
+    setDeleteIds(ids);
   };
 
-  handleCloseAlert1 = () => {
-    this.setState({ openAlert1: false, deleteIds: null });
+  const handleCloseAlert1 = () => {
+    setOpenAlert1(false);
+    setDeleteIds(null);
   };
 
-  onChange = (search, sortOrder, page, pageSize, activeCol) => {
-    this.props.getUserList({
+  const onChange = (search, sortOrder, page, pageSize, activeCol) => {
+    props.getUserList({
       search: search,
-      searchFields: this.searchFields,
+      searchFields: searchFields,
       sortOrder: sortOrder,
       page: page,
       pageSize: pageSize,
@@ -60,80 +61,77 @@ class UserList extends Component {
     });
   };
 
-  render() {
-    return (
-      <>
-        <Breadcrumb
-          title={"Customer Management"}
-          paths={[
-            {
-              title: "Customer",
-            },
-          ]}
-        />
+  return (
+    <>
+      <Breadcrumb
+        title={"Customer Management"}
+        paths={[
+          {
+            title: "Customer",
+          },
+        ]}
+      />
 
-        <DataTable
-          title="Customer"
-          headCells={[
-            {
-              id: "userAvatar",
-              sortKey: "first_name",
-              label: "Name",
-            },
-            {
-              id: "createdAt",
-              sortKey: "created_at",
-              label: "Created Date",
-            },
-          ]}
-          rows={this.props.userList?.data || []}
-          totalPage={this.props.userList?.meta?.pages || 0}
-          totalItem={this.props.userList?.meta?.total || 0}
-          start={this.props.userList?.meta?.start || 0}
-          end={this.props.userList?.meta?.end || 0}
-          loading={this.props.loading}
-          route={"/user"}
-          createLabel="Add Customer"
-          handleOpenAlert={this.handleOpenAlert}
-          handleOpenAlert1={this.handleOpenAlert1}
-          onChange={this.onChange}
-          permission={{ add: 1, edit: 1, view: 1, delete: 1 }}
-          actionStyle="kebab"
-          enableColumnFilter={false}
-          enableCheckbox={false}
-          history={this.props.history}
-          enableRowClick={true}
-        />
+      <DataTable
+        title="Customer"
+        headCells={[
+          {
+            id: "userAvatar",
+            sortKey: "first_name",
+            label: "Name",
+          },
+          {
+            id: "createdAt",
+            sortKey: "created_at",
+            label: "Created Date",
+          },
+        ]}
+        rows={props.userList?.data || []}
+        totalPage={props.userList?.meta?.pages || 0}
+        totalItem={props.userList?.meta?.total || 0}
+        start={props.userList?.meta?.start || 0}
+        end={props.userList?.meta?.end || 0}
+        loading={props.loading}
+        route={"/user"}
+        createLabel="Add Customer"
+        handleOpenAlert={handleOpenAlert}
+        handleOpenAlert1={handleOpenAlert1}
+        onChange={onChange}
+        permission={{ add: 1, edit: 1, view: 1, delete: 1 }}
+        actionStyle="kebab"
+        enableColumnFilter={false}
+        enableCheckbox={false}
+        enableRowClick={true}
+      />
 
-        <Alert
-          open={this.state.openAlert}
-          close={this.handleCloseAlert}
-          action={this.onDelete}
-          title="Customer Delete"
-          info="Are you sure to permanently delete this customers?"
-          awaitingInfo="Customer is deleting..."
-          actionBtnLabel="Delete"
-          loading={this.props.loading1}
-          success={this.props.success}
-          reset={this.props.resetUser}
-        />
+      <Alert
+        open={openAlert}
+        close={handleCloseAlert}
+        action={onDelete}
+        title="Customer Delete"
+        info="Are you sure to permanently delete this customers?"
+        awaitingInfo="Customer is deleting..."
+        actionBtnLabel="Delete"
+        loading={props.loading1}
+        success={props.success}
+        reset={props.resetUser}
+      />
 
-        <Alert
-          open={this.state.openAlert1}
-          close={this.handleCloseAlert1}
-          action={this.onDeleteAll}
-          title="Customer Delete"
-          info="Are you sure to permanently delete these customers?"
-          awaitingInfo="Customer is deleting..."
-          actionBtnLabel="Delete"
-          loading={this.props.loading1}
-          success={this.props.success}
-          reset={this.props.resetUser}
-        />
-      </>
-    );
-  }
-}
+      <Alert
+        open={openAlert1}
+        close={handleCloseAlert1}
+        action={onDeleteAll}
+        title="Customer Delete"
+        info="Are you sure to permanently delete these customers?"
+        awaitingInfo="Customer is deleting..."
+        actionBtnLabel="Delete"
+        loading={props.loading1}
+        success={props.success}
+        reset={props.resetUser}
+      />
+    </>
+  );
+};
 const mapStateToProps = ({ user }) => {
   const { userList, loading1, loading, success, error } = user;
   return { userList, loading1, loading, success, error };
