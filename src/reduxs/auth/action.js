@@ -15,9 +15,9 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
 export const RESET_AUTH = "RESET_AUTH";
 
-export const login = (loginData, history) => ({
+export const login = (loginData, navigate) => ({
   type: LOGIN,
-  payload: { loginData, history },
+  payload: { loginData, navigate },
 });
 
 export const loginSuccess = (user) => ({
@@ -45,9 +45,9 @@ export const forgotPasswordError = (error) => ({
   payload: error,
 });
 
-export const verifyResetToken = (token, history) => ({
+export const verifyResetToken = (token, navigate) => ({
   type: VERIFY_RESET_TOKEN,
-  payload: { token, history },
+  payload: { token, navigate },
 });
 
 export const verifyResetTokenSuccess = (success, message) => ({
@@ -60,9 +60,9 @@ export const verifyResetTokenError = (error) => ({
   payload: error,
 });
 
-export const resetPassword = (resetPasswordData, history) => ({
+export const resetPassword = (resetPasswordData, navigate) => ({
   type: RESET_PASSWORD,
-  payload: { resetPasswordData, history },
+  payload: { resetPasswordData, navigate },
 });
 
 export const resetPasswordSuccess = (success, message) => ({
@@ -75,9 +75,9 @@ export const resetPasswordError = (error) => ({
   payload: error,
 });
 
-export const logout = (history) => ({
+export const logout = (navigate) => ({
   type: LOGOUT,
-  payload: { history },
+  payload: { navigate },
 });
 
 export const logoutSuccess = (success, message) => {

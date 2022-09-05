@@ -39,7 +39,7 @@ function* login({ payload }) {
         localStorage.removeItem("password");
         localStorage.removeItem("remember");
       }
-      payload.history.push("/dashboard");
+      payload.navigate("/dashboard");
     } else {
       yield put(loginError(response.data.message));
     }
@@ -89,15 +89,13 @@ function* verifyResetToken({ payload }) {
     if (response.data.success) {
       yield put(verifyResetTokenSuccess(response.data.success, response.data.message));
     } else {
-      payload.history.push({
-        pathname: "/auth/login",
+      payload.navigate("/auth/login", {
         state: { responseMsg: response.data.message },
       });
       yield put(verifyResetTokenError(response.data.message));
     }
   } catch (error) {
-    payload.history.push({
-      pathname: "/auth/login",
+    payload.navigate("/auth/login", {
       state: {
         responseMsg: parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message),
       },
@@ -123,8 +121,7 @@ function* resetPassword({ payload }) {
     const response = yield call(resetPasswordAsync, payload.resetPasswordData);
     if (response.data.success) {
       yield put(resetPasswordSuccess(response.data.success, response.data.message));
-      payload.history.push({
-        pathname: "/auth/login",
+      payload.navigate("/auth/login", {
         state: { responseMsg: response.data.message },
       });
     } else {

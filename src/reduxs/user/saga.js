@@ -94,13 +94,13 @@ const addUserAsync = async (data) => {
 };
 
 function* addUser({ payload }) {
-  const { history } = payload;
+  const { navigate } = payload;
   try {
     const response = yield call(addUserAsync, payload.userData);
     if (response.data.success) {
       toast.success(<ToastElement type="success" message={response.data.message} />, { containerId: "default" });
       yield put(addUserSuccess(response.data.success, response.data.message));
-      history.push(`/user`);
+      navigate(`/user`);
     } else {
       toast.error(<ToastElement type="error" message={response.data.message} />, { containerId: "default" });
       yield put(addUserError(response.data.message));
@@ -132,23 +132,6 @@ function* getUser({ payload }) {
     const response = yield call(getUserAsync, payload.userId);
     if (response.data.success) {
       yield put(getUserSuccess(response.data.data));
-      if (payload.setLocalStorage) {
-        if (response.data.data?.id) {
-          let obj = {
-            id: response.data.data.id,
-            firstName: response.data.data.firstName,
-            lastName: response.data.data.lastName,
-            email: response.data.data.email,
-            role: response.data.data.role?.name,
-            roleId: response.data.data.roleId,
-            phone: response.data.data.phone,
-            address: response.data.data.address,
-            customerId: response.data.data.customerId,
-            patron: response.data.data.patron,
-          };
-          localStorage.setItem("currentUser", JSON.stringify(obj));
-        }
-      }
     } else {
       toast.error(<ToastElement type="error" message={response.data.message} />, { containerId: "default" });
       yield put(getUserError(response.data.message));
@@ -176,7 +159,7 @@ function* editUser({ payload }) {
         autoClose: 12000,
       });
       yield put(editUserSuccess(response.data.success, response.data.message));
-      payload?.history?.push(`/user`);
+      payload?.navigate?.push(`/user`);
     } else {
       toast.error(<ToastElement type="error" message={response.data.message} />, { containerId: "default" });
       yield put(editUserError(response.data.message));

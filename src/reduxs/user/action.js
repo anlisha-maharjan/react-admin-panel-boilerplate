@@ -51,9 +51,9 @@ export const getUserListError = (error) => ({
   payload: error,
 });
 
-export const addUser = (userData, history) => ({
+export const addUser = (userData, navigate) => ({
   type: ADD_USER,
-  payload: { userData, history },
+  payload: { userData, navigate },
 });
 
 export const addUserSuccess = (success, message) => ({
@@ -66,9 +66,9 @@ export const addUserError = (error) => ({
   payload: error,
 });
 
-export const getUser = (userId, setLocalStorage = false) => ({
+export const getUser = (userId) => ({
   type: GET_USER,
-  payload: { userId, setLocalStorage },
+  payload: { userId },
 });
 
 export const getUserSuccess = (userData) => ({
@@ -81,9 +81,9 @@ export const getUserError = (error) => ({
   payload: error,
 });
 
-export const editUser = (userId, userData, history) => ({
+export const editUser = (userId, userData, navigate) => ({
   type: EDIT_USER,
-  payload: { userId, userData, history },
+  payload: { userId, userData, navigate },
 });
 
 export const editUserSuccess = (success, message) => ({
