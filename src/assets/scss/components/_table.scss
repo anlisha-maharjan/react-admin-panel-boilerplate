@@ -1,0 +1,297 @@
+.table-responsive {
+  width: 100%;
+  overflow: auto;
+
+  table {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+.datatable-filter-bar {
+  min-height: initial;
+  display: flex;
+  margin: 0 0 1rem;
+  padding: 0;
+
+  @include media-breakpoint-down("sm") {
+    flex-wrap: wrap;
+  }
+
+  &.MuiToolbar-root {
+    @extend .datatable-filter-bar;
+  }
+
+  .title {
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+
+  .tbl-filter-field {
+    max-width: 22rem;
+    margin: 1rem 0;
+
+    @include media-breakpoint-down("xs") {
+      max-width: 100%;
+    }
+
+    .MuiInputBase-root {
+      &.MuiOutlinedInput-root {
+        input,
+        .MuiSelect-root {
+          padding: 1.2rem 2rem;
+        }
+      }
+
+      .MuiInputAdornment-root {
+        &.MuiInputAdornment-positionStart {
+          + input {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .filter-bar-right {
+    margin-left: auto;
+
+    @include media-breakpoint-down("sm") {
+      margin-top: -3.5rem;
+    }
+  }
+
+  .MuiCollapse-container {
+    width: 100%;
+
+    @include media-breakpoint-down("md") {
+      margin-top: 2rem;
+      order: 3;
+    }
+  }
+}
+
+.column-filter {
+  .MuiPopover-paper {
+    max-width: 100%;
+    width: 48rem;
+    padding: 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba($color: #000000, $alpha: 0.16);
+    background-color: #ffffff;
+  }
+}
+
+.default-datatable {
+  .MuiTableRow-root {
+    th,
+    td {
+      padding: 1.5rem calc(2.4rem / 2);
+      font-size: 1.8rem;
+
+      .default-checkbox {
+        padding: 0;
+      }
+
+      &:first-child {
+        padding-left: 0.5rem;
+      }
+
+      &:last-child {
+        padding-right: 0.5rem;
+        text-align: center;
+      }
+    }
+  }
+
+  .MuiTableHead-root {
+    .MuiTableRow-root {
+      th {
+        border-color: rgba($color: $primaryColor, $alpha: 0.36);
+        color: #a3a8b1;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        &.MuiTableCell-stickyHeader {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+
+  .MuiTableBody-root {
+    .MuiTableRow-root {
+      td {
+        border-color: rgba($color: #707070, $alpha: 0.11);
+
+        &:last-child {
+          text-align: center;
+        }
+
+        a {
+          color: #172b4d;
+          &:hover {
+            color: $primaryColor;
+          }
+        }
+      }
+
+      &:last-child {
+        td {
+          border: none;
+        }
+      }
+
+      &.Mui-selected {
+        background-color: transparent;
+      }
+
+      &:hover {
+        background-color: rgb(253, 253, 253);
+      }
+    }
+  }
+
+  .form-group {
+    margin: 1rem 0;
+
+    .MuiFormControl-root {
+      .MuiInputBase-root.MuiOutlinedInput-root {
+        input {
+          padding: 1rem 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+.pagination-datatable {
+  // padding: 3rem;
+  // border: 1px solid #F0EFEF;
+  // border-radius: 20px;
+  // background-color: #FFFFFF;
+  margin-top: 3.4rem;
+
+  .page-info {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+    @include media-breakpoint-down("xs") {
+      align-self: center;
+      margin: 0 0 2rem 0;
+    }
+  }
+
+  .pagination-card {
+    h5 {
+      margin-right: 2rem;
+      color: #a3a8b1;
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+
+    .MuiInputBase-root.MuiInput-root {
+      &:before,
+      &:after {
+        display: none;
+      }
+
+      .MuiSelect-selectMenu {
+        border: 1px solid #dddddd;
+        border-radius: 3px;
+        padding: 0.5rem 2.4rem 0.5rem 1rem;
+      }
+    }
+
+    .MuiPagination-root {
+      margin-left: 3rem;
+
+      @include media-breakpoint-down("xs") {
+        align-self: center;
+        margin: 2rem auto 0 auto;
+      }
+
+      .MuiPaginationItem-root {
+        margin: 0 0.5rem;
+        border: none;
+        border-radius: 4px;
+        color: #555454;
+        font-size: 1.9rem;
+
+        .MuiPaginationItem-icon {
+          width: 3rem;
+          height: 3rem;
+        }
+
+        &.Mui-selected {
+          background-color: $primaryColor;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  &.dark {
+    .pagination-card {
+      h5 {
+        color: #fff;
+      }
+
+      .MuiInputBase-root {
+        color: #fff;
+
+        @include svgColor(#fff);
+      }
+    }
+  }
+}
+
+.btn-action-icon {
+  margin: 0 4px;
+  background-color: #ededed;
+
+  &.MuiIconButton-root {
+    @extend .btn-action-icon;
+  }
+
+  @include svgColor(#959595);
+}
+
+.table-wrapper {
+  @extend .table-responsive;
+
+  &.card {
+    padding: 3.3rem;
+    border: 1px solid #f0efef;
+    border-radius: 10px;
+    box-shadow: none;
+    background-color: #ffffff;
+
+    + .pagination-datatable {
+      padding: 3rem;
+      border: 1px solid #f0efef;
+      border-radius: 20px;
+      background-color: #ffffff;
+      margin-top: 2.4rem;
+
+      .page-info {
+        margin-left: 2rem;
+      }
+    }
+  }
+}
+
+.table-striped {
+  tbody {
+    tr {
+      &:nth-child(even) {
+        td {
+          background-color: #fafafa;
+        }
+      }
+    }
+  }
+}

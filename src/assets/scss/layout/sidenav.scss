@@ -1,0 +1,312 @@
+@mixin hoverMenuStyle() {
+  min-width: 24rem;
+  min-height: initial !important;
+  height: auto !important;
+  position: fixed;
+  left: $sideNavWidth;
+  margin-top: -5rem;
+  border-radius: 5px;
+  background-color: $sideNavSubMenuBgColor;
+  visibility: visible !important;
+  overflow: visible;
+  z-index: 3;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 100%;
+    border-right: 10px solid $sideNavSubMenuBgColor;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+
+  .MuiList-root {
+    .MuiListItem-root {
+      a {
+        position: relative;
+        padding: 1.8rem 4.5rem;
+        border-radius: 5px;
+        color: lighten($color: $primaryColor, $amount: 40);
+
+        &:before {
+          display: none;
+        }
+
+        &:hover {
+          background-color: $sideNavActiveColor;
+          color: $sideNavTextColor;
+        }
+
+        &.active {
+          background-color: $sideNavActiveColor;
+          color: $sideNavTextColor;
+        }
+      }
+
+      &:not(:last-child) {
+        a {
+          border-bottom: 1px solid $sideNavBackground;
+        }
+      }
+    }
+  }
+}
+
+.cms-drawer {
+  .MuiDrawer-paper {
+    background-color: $sideNavBackground;
+  }
+
+  &__toolbar {
+    width: $sideNavWidth;
+
+    &.MuiToolbar-root {
+      height: $toolbarHeight;
+      padding: 0 3rem;
+      overflow: hidden;
+    }
+  }
+
+  &__list {
+
+    &.MuiList-root {
+      flex: 1;
+      margin-top: 3rem;
+      padding: 0;
+    }
+
+    .submenu-parent {
+      width: 100%;
+      position: relative;
+
+      a {
+        display: flex;
+        padding: 1.4rem 3rem;
+        color: $sideNavTextColor;
+        font-size: 1.6rem;
+        font-weight: 400;
+        text-decoration: none;
+
+        .icon-menu {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          flex-shrink: 0;
+          margin-right: 2.2rem;
+
+          svg {
+            width: 100%;
+            height: 100%
+          }
+
+          @include svgColor($sideNavIconColor);
+        }
+
+        &.active {
+          color: $sideNavActiveColor;
+
+          .icon-menu {
+            @include svgColor($sideNavActiveColor);
+          }
+        }
+
+      }
+
+      &.hover-menu {
+
+        @include media-breakpoint-up("md") {
+          &:hover {
+            >a.MuiListItem-root+.cms-drawer__list__submenu {
+              &:not(.MuiCollapse-entered) {
+                @include hoverMenuStyle();
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__submenu {
+      .MuiList-root {
+        padding: 0;
+
+        .MuiListItem-root {
+          padding: 0;
+
+          a {
+            width: 100%;
+            padding: 1.4rem 3rem 1.4rem calc(3rem + 2.2rem + 24px);
+
+            &:before {
+              width: 4px;
+              height: 30px;
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              border-radius: 10px;
+              background-color: $sideNavActiveColor;
+              opacity: 0;
+              transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            &:hover {
+              background-color: darken($color: #ffffff, $amount: 5);
+              color: $sideNavActiveColor;
+            }
+
+            &.active {
+              background-color: rgba($color: #ffffff, $alpha: 0.9);
+
+              &:before {
+                top: 10px;
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    padding: 3rem 0;
+    overflow: hidden;
+
+    .MuiButton-root.MuiButtonBase-root {
+      width: 100%;
+      margin-bottom: 3rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      color: #555454;
+      font-size: 1.6rem;
+      font-weight: 400;
+      text-transform: none;
+      text-align: left;
+
+      .MuiButton-label {
+        justify-content: flex-start;
+      }
+
+      .MuiButton-startIcon {
+        margin-right: 2.2rem;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          padding: 0;
+        }
+      }
+    }
+
+    .MuiTypography-root {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  @include media-breakpoint-up("md") {
+    &.collapsed {
+      .cms-drawer__toolbar {
+        width: $sideNaveCollapseWidth;
+
+        &.MuiToolbar-root {
+          padding: 1rem;
+        }
+      }
+
+      .cms-drawer__list {
+        .submenu-parent {
+          >a {
+            padding: 1.4rem 2.5rem;
+            font-size: 0;
+
+            span {
+              &:last-child {
+                display: none;
+              }
+
+              &.icon-menu {
+                margin: 0;
+              }
+            }
+          }
+
+          &.hover-menu {
+            &:hover {
+              >a.MuiListItem-root+.cms-drawer__list__submenu {
+                @include hoverMenuStyle();
+
+                display: block;
+                left: $sideNaveCollapseWidth;
+              }
+            }
+          }
+        }
+
+        .cms-drawer__list__submenu {
+          &.MuiCollapse-entered {
+            display: none;
+          }
+        }
+      }
+
+      .cms-drawer__footer {
+        .MuiButton-root.MuiButtonBase-root {
+          font-size: 0;
+        }
+
+        .MuiTypography-root {
+          font-size: 0;
+          visibility: hidden;
+          z-index: -1;
+        }
+      }
+
+      // on Hover Drawer set default child elem styles
+      &.hover-expand {
+        .cms-drawer__toolbar {
+          width: $sideNavWidth;
+
+          &.MuiToolbar-root {
+            padding: 0 3rem;
+          }
+        }
+
+        .submenu-parent {
+          >a {
+            font-size: 1.6rem;
+
+
+            span {
+              &:last-child {
+                display: block;
+              }
+
+              &.icon-menu {
+                margin-right: 2.2rem;
+              }
+            }
+          }
+        }
+
+        .cms-drawer__footer {
+          .MuiButton-root.MuiButtonBase-root {
+            font-size: 1.6rem;
+          }
+
+          .MuiTypography-root {
+            position: static;
+            font-size: 12px;
+            visibility: visible;
+            z-index: 1;
+            transition: visibility 300ms ease 600ms;
+          }
+        }
+      }
+    }
+
+    &.expanded {}
+  }
+}

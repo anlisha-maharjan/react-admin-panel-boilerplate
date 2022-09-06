@@ -1,0 +1,55 @@
+$primaryColor: #d5ab53;
+$secondaryColor: #55182F;
+$errorColor: #ff4e4e;
+$warningColor: #ffa85d;
+$successColor: #89d426;
+
+$color1:#1A2225;
+$color2:#838381;
+$color3:#737474;
+$color4:#4b2004;
+
+$darkBlue: #172b4d;
+$lightRed: #ff4e4e;
+
+$gold: #ffa85d;
+$grey: #A0ADBB;
+$lightGrey:#c5c5c5;
+
+$bluish-1:#f1efe2;
+
+$bodyBg:#E8E8E8;
+$textColor: #555454;
+
+$whiteBg: #f8f8f8;
+$bluishWhite: #f9fdff;
+
+$inputPadding: 1.4rem 2rem;
+$inputBorderColor:#B7B7B7;
+$inputBg:#F3F3F3;
+
+$toolbarHeight: 7.8rem;
+$mobileToolbarHeight: 5.5rem;
+$toolbarSearchBackground:rgba($color: #e8e8e8, $alpha: 0.3);
+$toolbarBackground: var(--toolbar-bg);
+$toolbarTextColor: var(--toolbar-text-color);
+$toolbarIconColor: var(--toolbar-icon-color);
+
+$sideNavWidth: 290px;
+$sideNaveCollapseWidth: 78px;
+$sideNavBackground: var(--side-nav-bg);
+$sideNavTextColor: var(--side-nav-text-color);
+$sideNavIconColor:var(--side-nav-icon-color);
+$sideNavActiveColor:var(--side-nav-active-color);
+$sideNavSubMenuBgColor:var(--side-nav-hover-submenu-color);
+
+$bredcrumbHeight: 10.6rem;
+$mobileBredcrumbHeight:8.6rem;
+
+$formFieldTextColor: #535a63;
+
+// Card Styles
+$cardPadding: ('xs':2rem,
+  'md': 2.5rem 3rem,
+  'lg': 5.5rem);
+$cardShadow: 0 3px 12px rgba(132, 132, 132, 0.16);

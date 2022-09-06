@@ -1,0 +1,36 @@
+.list-switch {
+    .MuiListItem-root {
+        padding: 0;
+
+        &:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+
+        .MuiListItemIcon-root {
+            min-width: 35px;
+            @include svgColor(#fff);
+        }
+
+        .MuiListItemText-root {
+            color: #ffffff;
+        }
+    }
+
+    .MuiListItemSecondaryAction-root {
+        right: 0;
+
+        .MuiSwitch-root {
+            width: 70px;
+            height: 47px;
+
+            .MuiSwitch-thumb {
+                margin: 5px 0 0 7px;
+            }
+
+            .MuiSwitch-track {
+                background-color: #455960;
+                border-radius: 30px;
+            }
+        }
+    }
+}

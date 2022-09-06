@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+/**
+ * Entry application component used to compose providers and render Routes.
+ * */
+import React, { Suspense } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { Provider } from "react-redux";
+import store from "src/reduxs/store";
+import { LayoutSplashScreen } from "src/configs/splash-screen";
+import theme from "src/configs/theme";
+import ErrorBoundary from "src/components/error-boundary";
+import Root from "./Root";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    /* Provide Redux store */
+    <Provider store={store}>
+      <ErrorBoundary>
+        {/* Add high level `Suspense` in case if was not handled inside the React tree. */}
+        <Suspense fallback={<LayoutSplashScreen />}>
+          <ThemeProvider theme={theme}>
+            {/* Render routes with provided `Layout`. */}
+            <Root />
+          </ThemeProvider>
+        </Suspense>
+      </ErrorBoundary>
+    </Provider>
   );
 }
-
-export default App;

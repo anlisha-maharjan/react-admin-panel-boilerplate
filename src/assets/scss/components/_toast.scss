@@ -1,0 +1,87 @@
+.Toastify {
+    &__toast-container {
+        max-width: 480px;
+        min-width: 320px;
+        width: auto;
+
+        @include media-breakpoint-down('xs') {
+            max-width: 100%;
+        }
+    }
+
+    &__toast {
+        display: flex;
+        padding: 0;
+        background-color: #ffffff;
+        color: #000;
+
+        .icon {
+            display: flex;
+            align-items: center;
+            padding: 0 1.2rem;
+            @include svgColor(#fff);
+        }
+
+        &--info {
+            .icon {
+                background-color: #547bc3;
+            }
+        }
+
+        &--success {
+            .icon {
+                background-color: $successColor;
+            }
+        }
+
+        &--warning {
+            .icon {
+                background-color: $warningColor;
+            }
+        }
+
+        &--error {
+            .icon {
+                background-color: $errorColor;
+
+            }
+        }
+    }
+
+    &__toast-body {
+        display: flex;
+        margin: 0;
+        padding: 0;
+
+        >.MuiTypography-root {
+            padding: 1rem 2.2rem;
+            font-weight: 500;
+
+            .MuiTypography-root {
+                color: $grey;
+                font-weight: 400;
+            }
+        }
+    }
+
+    &__close-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: #EDEDED;
+        }
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        @include svgColor($textColor);
+    }
+}

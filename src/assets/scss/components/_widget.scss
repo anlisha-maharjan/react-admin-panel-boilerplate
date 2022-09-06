@@ -1,0 +1,145 @@
+.widget-card {
+    height: calc(100% - 2rem);
+    position: relative;
+    margin-bottom: 2rem;
+    padding: 2rem 3.5rem;
+    border: 1px solid #F0EFEF;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba($color: #000000, $alpha: 0.04);
+
+    @include media-breakpoint-down('sm') {
+        padding: 1.5rem;
+    }
+
+    &.h-50 {
+        height: calc(50% - 2rem) !important;
+    }
+
+    &.MuiPaper-root {
+        @extend .widget-card;
+    }
+
+    .btn-menu {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .title {
+        font-size: 2.2rem;
+
+        @include media-breakpoint-down('sm') {
+            font-size: 1.8rem;
+        }
+
+        &.text-color-grey {
+            color: #9F9F9F;
+        }
+
+        &-large {
+            font-size: 3.5rem;
+
+            @include media-breakpoint-down('sm') {
+                font-size: 2.5rem;
+            }
+        }
+    }
+
+    .circular-progress-chart {
+        .semi-circle {
+            position: relative;
+            overflow: hidden;
+
+            .MuiCircularProgress-root {
+                position: relative;
+                transform: rotate(180deg) !important;
+            }
+
+            .status-lvl {
+                width: 3.4rem;
+                height: 3.4rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 4rem;
+                left: 50%;
+                border-radius: 50%;
+                background-color: rgba($color: #ACACAC, $alpha: 0.47);
+                font-size: 2rem;
+                transform: translateX(-50%);
+            }
+        }
+
+        .text-box {
+            position: relative;
+
+            .progress-label {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+
+                .MuiDivider-root {
+                    margin: 5px 0;
+                }
+            }
+        }
+
+        &.rounded-corner {
+            .MuiCircularProgress-root {
+                circle {
+                    stroke-linecap: round;
+                }
+            }
+        }
+
+        .MuiCircularProgress-root {
+
+            &:before {
+                width: 100%;
+                height: 100%;
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                border: 13px solid #EDF0F9;
+                border-radius: 50%;
+                transform: translateX(-50%);
+                box-sizing: border-box;
+                z-index: -1;
+            }
+        }
+
+        &.dotted-rail {
+            .MuiCircularProgress-root {
+                &:after {
+                    width: calc(50% + 37px);
+                    height: calc(50% + 37px);
+                    content: "";
+                    position: absolute;
+                    bottom: 2.2rem;
+                    left: 50%;
+                    border: 5px dotted #d6d6d6;
+                    border-radius: 50%;
+                    transform: translateX(-50%);
+                    box-sizing: border-box;
+                    z-index: -1;
+                }
+            }
+        }
+    }
+}
+
+.dash-filter {
+    .tbl-filter-field {
+        margin-left: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .form-group {
+        margin-top: 1rem !important;
+        margin-bottom: 1rem !important;
+    }
+}

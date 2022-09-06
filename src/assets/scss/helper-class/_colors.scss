@@ -1,0 +1,377 @@
+/* --- Background --- */
+.background {
+    &-size-contain {
+        background-size: contain;
+    }
+
+    &-no-repeat {
+        background-repeat: no-repeat;
+    }
+
+    &-center {
+        background-position: center;
+    }
+
+    &-color {
+        &-primary {
+            background-color: $primaryColor !important;
+
+            &-light {
+                background-color: lighten($color: $primaryColor, $amount: 35) !important;
+            }
+        }
+
+        &-secondary {
+            background-color: $secondaryColor !important;
+
+            &-light {
+                background-color: lighten($color: $secondaryColor, $amount: 35) !important;
+            }
+        }
+
+        &-danger {
+            background-color: $errorColor !important;
+        }
+
+        &-success {
+            background-color: $successColor !important;
+
+            &-fade {
+                background-color: #0b1200 !important;
+            }
+        }
+
+        &-muted {
+            background-color: lighten($color: $grey, $amount:2) !important;
+        }
+
+        &-black {
+            background-color: #000000 !important;
+        }
+
+        &-white {
+            background-color: #ffffff !important;
+        }
+
+        &-grey {
+            background-color: $grey !important;
+
+            &-light {
+                background-color: #EFEFEF !important;
+            }
+        }
+
+        &-color1 {
+            background-color: $color1 !important;
+
+            &-light {
+                background-color: lighten($color: $color1, $amount: 35) !important;
+            }
+        }
+
+        &-input {
+            background-color: $inputBg !important;
+        }
+
+        &-toolbarBg {
+            background-color: $toolbarSearchBackground !important;
+        }
+
+        &-sideNavBg {
+            background-color: $sideNavBackground !important;
+        }
+
+        &-transparent {
+            background-color: transparent !important;
+        }
+    }
+
+    &-gradient {
+        &-primary {
+            &-fade {
+                background: linear-gradient(to right, rgba(213, 171, 83, 1) 0%, rgba(125, 185, 232, 0) 100%);
+            }
+        }
+    }
+
+    &-logo {
+        background-image: url("/assets/images/logo.png");
+        background-size: 80%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}
+
+.status {
+    position: relative;
+    padding-left: 20px;
+
+    &:before {
+        width: 11px;
+        height: 11px;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 5px;
+        border-radius: 50%;
+    }
+
+    &.success {
+        &:before {
+            background-color: $successColor;
+        }
+    }
+
+    &.warn {
+        &:before {
+            background-color: $warningColor;
+        }
+    }
+
+    &.danger {
+        &:before {
+            background-color: $errorColor;
+        }
+    }
+}
+
+.status-bg {
+    min-width: 8.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    border-radius: 30px;
+    color: #172B4D;
+
+    &.success {
+        background-color: rgba($color: $successColor, $alpha: 65);
+        color: darken($color: $successColor, $amount: 30);
+    }
+
+    &.primary {
+        background-color: rgba($color: $primaryColor, $alpha: 65);
+        color: darken($color: $primaryColor, $amount: 30);
+    }
+
+    &.warn {
+        background-color: rgba($color: $warningColor, $alpha: 65);
+        color: darken($color:$warningColor, $amount: 30);
+    }
+
+    &.danger {
+        background-color: rgba($color: $lightRed, $alpha: 65);
+        color: darken($color: $lightRed, $amount: 30);
+    }
+
+    &.disabled {
+        background-color: #E3E3E3;
+        color: #8D8D8D;
+    }
+
+    &.compact {
+        min-width: initial;
+        padding: 4px 8px;
+        font-size: 1.4rem;
+        line-height: 1;
+    }
+}
+
+/* --- Text COLORS --- */
+.text-color {
+    &-primary {
+        color: $primaryColor !important;
+
+        &-hover {
+            &:hover {
+                color: $primaryColor !important;
+            }
+        }
+    }
+
+    &-secondary {
+        color: $secondaryColor !important;
+    }
+
+    &-danger {
+        color: $errorColor !important;
+    }
+
+    &-warning {
+        color: $warningColor !important;
+    }
+
+    &-color1 {
+        color: $color1 !important;
+    }
+
+    &-info {
+        color: $secondaryColor !important;
+    }
+
+    &-success {
+        color: $successColor !important;
+    }
+
+    &-default {
+        color: $textColor !important;
+    }
+
+    &-gold {
+        color: $gold !important;
+    }
+
+    &-white {
+        color: #ffffff !important;
+    }
+
+    &-black {
+        color: #000000 !important;
+    }
+
+    &-grey {
+        color: $grey !important;
+
+        &-light {
+            color: $lightGrey !important;
+        }
+    }
+
+    &-muted {
+        color: lighten($color: $grey, $amount:2);
+
+        figure {
+            @extend .svg-color-muted;
+        }
+    }
+
+    &-side-nav {
+        color: $sideNavTextColor !important;
+    }
+
+    &-toolbar {
+        color: $toolbarTextColor !important;
+    }
+}
+
+/* --- SVG COLORS --- */
+.svg-color {
+    &-neutral {
+        @include svgColor(inherit);
+    }
+
+    &-white {
+        @include svgColor(#fff);
+
+        &-hover {
+            &:hover {
+                @include svgColor(#fff);
+            }
+        }
+    }
+
+    &-black {
+        @include svgColor($textColor);
+    }
+
+    &-primary {
+        @include svgColor($primaryColor);
+    }
+
+    &-secondary {
+        @include svgColor($secondaryColor);
+    }
+
+    &-success {
+        @include svgColor($successColor);
+    }
+
+    &-danger {
+        @include svgColor($errorColor);
+    }
+
+    &-gold {
+        @include svgColor($gold);
+    }
+
+    &-grey {
+        @include svgColor($grey);
+    }
+
+    &-muted {
+        @include svgColor(lighten($color: $grey, $amount:2));
+    }
+
+    &-side-nav-icon {
+        @include svgColor($sideNavIconColor)
+    }
+
+    &-toolbar-icon {
+        @include svgColor($toolbarIconColor);
+    }
+}
+
+/* --- SVG Size --- */
+.svg-size {
+    &-flexible {
+        svg {
+            width: 100% !important;
+            height: auto !important;
+        }
+    }
+
+    &-fill {
+        svg {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
+
+    &-large {
+        svg {
+            width: 8rem !important;
+            height: auto !important;
+        }
+    }
+
+    &-medium {
+        svg {
+            width: 3.5rem !important;
+            height: auto !important;
+        }
+    }
+
+    &-small {
+        svg {
+            width: 1.8rem !important;
+            height: 1.8rem !important;
+        }
+    }
+
+    &-xs {
+        svg {
+            width: 1.2rem !important;
+            height: 1.2rem !important;
+        }
+    }
+
+    &-xss {
+        svg {
+            width: 1rem !important;
+            height: 1rem !important;
+        }
+    }
+
+    &-compact {
+        svg {
+            width: 8rem !important;
+            height: 5rem !important;
+        }
+    }
+}
+
+.svg-opacity-1 {
+    svg {
+        opacity: 1;
+    }
+}
