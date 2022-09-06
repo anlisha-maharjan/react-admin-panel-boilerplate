@@ -4,15 +4,17 @@ import { connect } from "react-redux";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Breadcrumb from "src/components/breadcrumb";
 import { getUser, addUser, editUser } from "src/reduxs/actions";
-import { InputField, InputHiddenField } from "src/components/form";
-import GoogleAutocomplete from "src/components/autocomplete";
+import { InputField, InputHiddenField, InputGoogleField } from "src/components/form";
 
 const EditUser = (props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const params = useParams();
   const isWidthDownXs = useMediaQuery(theme.breakpoints.down("xs"));
 
   const schema = Yup.object().shape({
@@ -31,18 +33,18 @@ const EditUser = (props) => {
   });
 
   useEffect(() => {
-    if (props.match.params.id) {
-      props.getUser(props.match.params.id);
+    if (params.id) {
+      props.getUser(params.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (values) => {
     if (!props.loading) {
-      if (props.match.params.id) {
-        props.editUser(props.match.params.id, values, props.history);
+      if (params.id) {
+        props.editUser(params.id, values, navigate);
       } else {
-        props.addUser(values, props.history);
+        props.addUser(values, navigate);
       }
     }
   };
@@ -50,14 +52,14 @@ const EditUser = (props) => {
   return (
     <>
       <Breadcrumb
-        title={"Customer Management"}
+        title={"User Management"}
         paths={[
           {
-            title: "Customer",
+            title: "User",
             page: `/user`,
           },
           {
-            title: props.match.params.id ? "Edit" : "Add",
+            title: params.id ? "Edit" : "Add",
           },
         ]}
       />
@@ -65,11 +67,12 @@ const EditUser = (props) => {
       <Formik
         enableReinitialize={true}
         initialValues={{
-          firstName: props.match.params.id ? props.userData?.firstName || "" : "",
-          lastName: props.match.params.id ? props.userData?.lastName || "" : "",
-          email: props.match.params.id ? props.userData?.email || "" : "",
-          phone: props.match.params.id ? props.userData?.phone || "" : "",
-          address: props.match.params.id ? props.userData?.address || "" : "",
+          firstName: params.id ? props.userData?.firstName || "" : "",
+          lastName: params.id ? props.userData?.lastName || "" : "",
+          email: params.id ? props.userData?.email || "" : "",
+          phone: params.id ? props.userData?.phone || "" : "",
+          address: params.id ? props.userData?.address || "" : "",
+          role_id: "2",
         }}
         validationSchema={schema}
         onSubmit={onSubmit}
@@ -78,7 +81,7 @@ const EditUser = (props) => {
           <Form className="default-form">
             <Mui.Card className="default-card">
               <Mui.Typography component="h4" variant="h4" className="mb-4 font-weight-medium">
-                Customer Information
+                User Information
               </Mui.Typography>
 
               <Mui.Grid container spacing={2}>
@@ -105,16 +108,7 @@ const EditUser = (props) => {
                   />
                 </Mui.Grid>
                 <Mui.Grid item xs={12} md={6} lg={4} className="form-group">
-                  <GoogleAutocomplete
-                    label={"Address"}
-                    variant={"outlined"}
-                    touched={props.touched?.address}
-                    error={props.errors?.address}
-                    defaultValue={props.values?.address}
-                    callback={(description) => {
-                      props.setFieldValue(`address`, description || "");
-                    }}
-                  />
+                  <InputGoogleField name="address" label="Address*" placeholder="Enter a Location" />
                 </Mui.Grid>
               </Mui.Grid>
             </Mui.Card>

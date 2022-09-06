@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import * as Mui from "@mui/material";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -10,10 +11,11 @@ import { IconChevronLeft, IconMail, IconPhone, IconPin } from "src/components/sv
 
 const ViewUser = (props) => {
   const theme = useTheme();
+  const params = useParams();
 
   useEffect(() => {
-    if (props.match.params.id) {
-      props.getUser(props.match.params.id);
+    if (params.id) {
+      props.getUser(params.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
