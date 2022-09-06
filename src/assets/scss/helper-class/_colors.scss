@@ -1,15 +1,15 @@
 /* --- Background --- */
 .background {
     &-size-contain {
-        background-size: contain;
+        background-size: contain !important;
     }
 
     &-no-repeat {
-        background-repeat: no-repeat;
+        background-repeat: no-repeat !important;
     }
 
     &-center {
-        background-position: center;
+        background-position: center !important;
     }
 
     &-color {
@@ -111,19 +111,19 @@
 
     &.success {
         &:before {
-            background-color: $successColor;
+            background-color: $successColor !important;
         }
     }
 
     &.warn {
         &:before {
-            background-color: $warningColor;
+            background-color: $warningColor !important;
         }
     }
 
     &.danger {
         &:before {
-            background-color: $errorColor;
+            background-color: $errorColor !important;
         }
     }
 }
