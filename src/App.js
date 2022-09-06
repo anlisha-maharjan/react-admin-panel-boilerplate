@@ -5,7 +5,7 @@ import React, { Suspense } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { Provider } from "react-redux";
 import store from "src/reduxs/store";
-import { LayoutSplashScreen } from "src/configs/core";
+import { LayoutSplashScreen } from "src/configs/splash-screen";
 import theme from "src/configs/theme";
 import ErrorBoundary from "src/components/error-boundary";
 import Root from "./Root";
