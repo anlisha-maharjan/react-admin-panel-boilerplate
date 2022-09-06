@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Mui from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useTheme } from "@mui/material/styles";
@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { sideNavConfig } from "src/configs/constant";
 
 const Menu = (props) => {
+  const location = useLocation();
   const theme = useTheme();
   const isWidthDownMd = useMediaQuery(theme.breakpoints.down("md"));
   const [currentPath, setCurrentPath] = useState("");
@@ -17,7 +18,7 @@ const Menu = (props) => {
     setCurrentPath(window.location.pathname.split("/")[1] || window.location.pathname);
     setActivePath(props.item?.path.split("/")[1]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.location]);
+  }, [location]);
 
   return (
     <Mui.Box component="li" className={`submenu-parent ${sideNavConfig.hoverSubMenu ? "hover-menu" : ""}`}>

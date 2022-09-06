@@ -23,7 +23,7 @@ const Sidenav = (props) => {
 
       <Mui.List className="cms-drawer__list">
         {menuList?.map((item, index) => {
-          return <Menu item={item} key={index} location={props.location} closeDrawer={props.closeDrawer} />;
+          return <Menu item={item} key={index} closeDrawer={props.closeDrawer} />;
         })}
       </Mui.List>
 
