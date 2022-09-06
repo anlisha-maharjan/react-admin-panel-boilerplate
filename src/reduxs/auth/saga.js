@@ -1,7 +1,19 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import AuthService from "src/services/auth-service";
-import { LOGIN, FORGOT_PASSWORD, VERIFY_RESET_TOKEN, RESET_PASSWORD, LOGOUT } from "src/reduxs/actions";
 import {
+  REGISTER,
+  VERIFY_USER,
+  LOGIN,
+  FORGOT_PASSWORD,
+  VERIFY_RESET_TOKEN,
+  RESET_PASSWORD,
+  LOGOUT,
+} from "src/reduxs/actions";
+import {
+  registerSuccess,
+  registerError,
+  verifyUserSuccess,
+  verifyUserError,
   loginSuccess,
   loginError,
   forgotPasswordSuccess,
@@ -14,6 +26,63 @@ import {
   logoutError,
 } from "./action";
 import { parseMessage } from "src/helpers/util";
+
+export function* watchRegister() {
+  yield takeEvery(REGISTER, register);
+}
+
+const registerAsync = async (data) => {
+  return AuthService.register(data);
+};
+
+function* register({ payload }) {
+  try {
+    const response = yield call(registerAsync, payload.registerData);
+    if (response.data.success) {
+      yield put(registerSuccess(response.data.success, response.data.message));
+    } else {
+      yield put(registerError(response.data.message));
+    }
+  } catch (error) {
+    yield put(
+      registerError(parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message))
+    );
+  }
+}
+
+export function* watchVerifyUser() {
+  yield takeEvery(VERIFY_USER, verifyUser);
+}
+
+const verifyUserAsync = async (token) => {
+  return AuthService.verifyUser(token);
+};
+
+function* verifyUser({ payload }) {
+  try {
+    const response = yield call(verifyUserAsync, payload.token);
+    if (response.data.success) {
+      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+      localStorage.setItem("token", response.data.data.token);
+      yield put(verifyUserSuccess(response.data.success, response.data.message));
+      payload.navigate("/dashboard");
+    } else {
+      yield put(verifyUserError(response.data.message));
+      payload.navigate("/auth/login", {
+        state: { responseMsg: response.data.message },
+      });
+    }
+  } catch (error) {
+    payload.navigate("/auth/login", {
+      state: {
+        responseMsg: parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message),
+      },
+    });
+    yield put(
+      verifyUserError(parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message))
+    );
+  }
+}
 
 export function* watchLogin() {
   yield takeEvery(LOGIN, login);
@@ -165,6 +234,8 @@ function* logout() {
 
 export default function* rootSaga() {
   yield all([
+    fork(watchRegister),
+    fork(watchVerifyUser),
     fork(watchLogin),
     fork(watchForgotPassword),
     fork(watchVerifyResetToken),

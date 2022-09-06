@@ -1,4 +1,10 @@
 import {
+  REGISTER,
+  REGISTER_SUCCESS,
+  REGISTER_ERROR,
+  VERIFY_USER,
+  VERIFY_USER_SUCCESS,
+  VERIFY_USER_ERROR,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
@@ -20,6 +26,7 @@ import {
 const INIT_STATE = {
   forgotPasswordData: null,
   resetPasswordData: null,
+  registerData: null,
   loginData: null,
   token: null,
   user: JSON.parse(localStorage.getItem("currentUser")),
@@ -32,6 +39,42 @@ const INIT_STATE = {
 
 const authReducer = (state = INIT_STATE, action) => {
   switch (action.type) {
+    case REGISTER:
+      return { ...state, loading: true, error: null };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload.success,
+        message: action.payload.message,
+        error: null,
+      };
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        message: null,
+        error: action.payload,
+      };
+    case VERIFY_USER:
+      return { ...state, loading: true, error: null };
+    case VERIFY_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload.success,
+        message: action.payload.message,
+        error: null,
+      };
+    case VERIFY_USER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+        message: null,
+        error: action.payload,
+      };
     case LOGIN:
       return { ...state, loading: true, error: null };
     case LOGIN_SUCCESS:

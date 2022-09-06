@@ -1,3 +1,9 @@
+export const REGISTER = "REGISTER";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_ERROR = "REGISTER_ERROR";
+export const VERIFY_USER = "VERIFY_USER";
+export const VERIFY_USER_SUCCESS = "VERIFY_USER_SUCCESS";
+export const VERIFY_USER_ERROR = "VERIFY_USER_ERROR";
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
@@ -14,6 +20,36 @@ export const LOGOUT = "LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
 export const RESET_AUTH = "RESET_AUTH";
+
+export const register = (registerData) => ({
+  type: REGISTER,
+  payload: { registerData },
+});
+
+export const registerSuccess = (success, message) => ({
+  type: REGISTER_SUCCESS,
+  payload: { success, message },
+});
+
+export const registerError = (error) => ({
+  type: REGISTER_ERROR,
+  payload: error,
+});
+
+export const verifyUser = (token, navigate) => ({
+  type: VERIFY_USER,
+  payload: { token, navigate },
+});
+
+export const verifyUserSuccess = (success, message) => ({
+  type: VERIFY_USER_SUCCESS,
+  payload: { success, message },
+});
+
+export const verifyUserError = (error) => ({
+  type: VERIFY_USER_ERROR,
+  payload: error,
+});
 
 export const login = (loginData, navigate) => ({
   type: LOGIN,

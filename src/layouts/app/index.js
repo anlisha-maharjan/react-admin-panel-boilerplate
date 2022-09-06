@@ -97,7 +97,6 @@ const Layout = (props) => {
         {toolBarConfig.style === "fixed" ? <Mui.Toolbar className="placeholder-toolbar" /> : null}
 
         <Mui.Container className="cms-body container-fluid" maxWidth={false}>
-          {/* {props.children} */}
           <Outlet />
         </Mui.Container>
       </main>

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { SplashScreenProvider } from "src/configs/core";
+import { SplashScreenProvider } from "src/configs/splash-screen";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import "./assets/scss/main.scss";

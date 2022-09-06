@@ -66,16 +66,6 @@ const TableRow = (props) => {
                   <UserAvatarCell data={row} />
                 </Mui.TableCell>
               );
-            case "vehicleType":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  {row["vehicleType"] ? row["vehicleType"]["name"] : ""}
-                </Mui.TableCell>
-              );
             case "role":
               return (
                 <Mui.TableCell
@@ -84,16 +74,6 @@ const TableRow = (props) => {
                   onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
                 >
                   {row["role"]?.["name"] || ""}
-                </Mui.TableCell>
-              );
-            case "vehicleCategory":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  {row["vehicleCategory"]?.["name"] || ""}
                 </Mui.TableCell>
               );
             case "status":
@@ -124,64 +104,6 @@ const TableRow = (props) => {
                   <span className={`text-transform-capitalize status-bg ${row["status"] ? "success" : "warn"}`}>
                     {row["status"] ? "Active" : "Inactive"}
                   </span>
-                </Mui.TableCell>
-              );
-            case "couponMinPrice":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  ${row["minPrice"]}
-                </Mui.TableCell>
-              );
-            case "couponPercent":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  {row["percent"]}%
-                </Mui.TableCell>
-              );
-            case "paymentStatus":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  <span
-                    className={`text-transform-capitalize status-bg ${row[column.id] === "hold" ? "disabled" : ""} ${
-                      row[column.id] === "deposit" ? "warn" : ""
-                    } ${row[column.id] === "paid" ? "success" : ""}`}
-                  >
-                    {row[column.id]}
-                  </span>
-                </Mui.TableCell>
-              );
-            case "date":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  {moment(row["pickupDate"]).format("MMM DD, YYYY")}
-                </Mui.TableCell>
-              );
-            case "bookingType":
-              return (
-                <Mui.TableCell
-                  key={i}
-                  className={`${enableRowClick ? "pointer" : ""}`}
-                  onClick={() => (enableRowClick ? navigate(`${route}/view/${row?.id}`) : "")}
-                >
-                  {row["type"] === "distance" ? "Point to Point" : null}
-                  {row["type"] === "hourly" ? "Hourly" : null}
-                  {row["type"] === "flat_rate" ? "Flat Rate" : null}
                 </Mui.TableCell>
               );
             case "createdAt":

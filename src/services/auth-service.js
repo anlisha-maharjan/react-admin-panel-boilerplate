@@ -2,6 +2,14 @@ import Req from "src/interceptors/token-interceptor";
 import AuthReq from "src/interceptors/auth-interceptor";
 
 const AuthService = (function () {
+  function _register(data) {
+    return AuthReq.post("/api/register", data);
+  }
+
+  function _verifyUser(token) {
+    return AuthReq.get(`/api/users/verify/${token}`);
+  }
+
   function _login(data) {
     return AuthReq.post("/api/login", data);
   }
@@ -23,6 +31,8 @@ const AuthService = (function () {
   }
 
   return {
+    register: _register,
+    verifyUser: _verifyUser,
     login: _login,
     forgotPassword: _forgotPassword,
     verifyResetToken: _verifyResetToken,

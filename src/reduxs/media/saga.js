@@ -1,6 +1,6 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import MediaService from "../../services/media-service";
-import { UPLOAD_MEDIA, DELETE_MEDIA, DOWNLOAD_MEDIA } from "../actions";
+import MediaService from "src/services/media-service";
+import { UPLOAD_MEDIA, DELETE_MEDIA, DOWNLOAD_MEDIA } from "src/reduxs/actions";
 import {
   uploadMediaSuccess,
   uploadMediaError,
@@ -11,7 +11,7 @@ import {
 } from "./action";
 import saveAs from "file-saver";
 import { toast } from "react-toastify";
-import ToastElement from "../../components/toast";
+import ToastElement from "src/components/toast";
 
 export function* watchUploadMedia() {
   yield takeEvery(UPLOAD_MEDIA, uploadMedia);
