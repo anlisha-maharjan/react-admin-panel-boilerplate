@@ -35,7 +35,7 @@ const Layout = (props) => {
     }
   };
 
-  const _onIdle = () => {}
+  const _onIdle = () => {};
 
   const checkSmallDevices = () => {
     if (isWidthUpLg) {
@@ -88,7 +88,7 @@ const Layout = (props) => {
         onClose={hanndelMobileDrawerOpenToggle}
         anchor="left"
       >
-        <Sidenav location={props.location} closeDrawer={hanndelMobileDrawerOpenToggle} />
+        <Sidenav closeDrawer={hanndelMobileDrawerOpenToggle} />
       </Mui.Drawer>
 
       <main className={`cms-drawer-content ${drawerCollapse ? "collapsed" : "expanded"}`}>

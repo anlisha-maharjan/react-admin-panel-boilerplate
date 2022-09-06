@@ -6,7 +6,6 @@
   overflow: hidden;
   word-break: break-all;
 }
-
 @mixin svgColor($color, $priority: false) {
   $newColor: $color;
 
@@ -26,13 +25,9 @@
         }
       }
 
-      &[fill="none"] {
+      &[stroke-width] {
         stroke: $newColor;
       }
-    }
-
-    line {
-      stroke: $color;
     }
   }
 }

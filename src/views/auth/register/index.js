@@ -50,7 +50,7 @@ const Register = (props) => {
         <Mui.Grid container spacing={4} className="h-100">
           <Mui.Grid item xs={12} md={6} lg={4}>
             <Mui.Typography className="auth-card__head" variant="h1" component="h1">
-              Welcome <br /> To <br /> <span className="text-color-primary">SHANGRI-LA CHAUFFEURS</span>
+              Welcome <br /> To <br /> <span className="text-color-primary">SIERRA</span>
             </Mui.Typography>
           </Mui.Grid>
 
@@ -96,7 +96,7 @@ const Register = (props) => {
                   validationSchema={schema}
                   onSubmit={onRegister}
                 >
-                  {(props) => (
+                  {({ values }) => (
                     <Form className="default-form center">
                       <Mui.Grid container spacing={3}>
                         <InputHiddenField name="role_id" />
@@ -162,7 +162,7 @@ const Register = (props) => {
             )}
 
             <Mui.Typography component="p" variant="body1" className="pt-2 mt-auto text-center copy">
-              Copyright © 2021 @ SHANGRI-LA CHAUFFEURS. All Rights Reserved.
+              Copyright © 2021 @ SIERRA. All Rights Reserved.
             </Mui.Typography>
           </Mui.Grid>
         </Mui.Grid>

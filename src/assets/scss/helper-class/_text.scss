@@ -105,11 +105,11 @@
 
 .word-break {
     &-all {
-        word-break: break-all;
+        word-break: break-all !important;
     }
 
     &-word {
-        word-break: break-word;
+        word-break: break-word !important;
     }
 }
 

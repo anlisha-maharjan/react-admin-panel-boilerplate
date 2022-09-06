@@ -55,7 +55,7 @@ const Topnav = (props) => {
                 {/* {Mui.isWidthDown("md", props.width) ? null : ( */}
                 {isWidthDownMd ? null : (
                   <>
-                    <Mui.Typography className="font-weight-normal ml-2 text-color-toolbar">
+                    <Mui.Typography className="font-weight-normal ml-2 text-color-toolbar text-transform-none">
                       {props.user?.firstName || ""} {props.user?.lastName || ""}
                     </Mui.Typography>
                     <span className="ml-1 p-0 line-height-null svg-size-small svg-color-toolbar-icon">

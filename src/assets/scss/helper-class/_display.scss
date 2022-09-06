@@ -24,14 +24,14 @@
 /* --- Flex Box Properties --- */
 .flex-direction {
     &-column {
-        flex-direction: column;
+        flex-direction: column !important;
     }
 
     &-row {
-        flex-direction: row;
+        flex-direction: row !important;
 
         &-reverse {
-            flex-direction: row-reverse;
+            flex-direction: row-reverse !important;
         }
     }
 }
@@ -40,15 +40,15 @@
     flex: 1;
 
     &-wrap {
-        flex-wrap: wrap;
+        flex-wrap: wrap !important;
     }
 
     &-no-wrap {
-        flex-wrap: nowrap;
+        flex-wrap: nowrap !important;
     }
 
     &-shrink-0 {
-        flex-shrink: 0;
+        flex-shrink: 0 !important;
     }
 }
 

@@ -3,13 +3,14 @@ import * as Mui from "@mui/material";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { Formik, Form } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { login, resetAuth } from "src/reduxs/actions";
 import { InputField, InputPasswordField } from "src/components/form";
 
 const Login = (props) => {
   const navigate = useNavigate();
-  const responseMsg = props.location?.state?.responseMsg || "";
+  const location = useLocation();
+  const responseMsg = location?.state?.responseMsg || "";
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Email is required"),
@@ -64,7 +65,7 @@ const Login = (props) => {
               validationSchema={schema}
               onSubmit={onLogin}
             >
-              {(props) => (
+              {({ values, setFieldValue }) => (
                 <Form className="default-form center">
                   <Mui.Grid container spacing={3}>
                     <Mui.Grid className="form-group-dark" item xs={12}>
@@ -82,8 +83,8 @@ const Login = (props) => {
                       control={
                         <Mui.Checkbox
                           color="primary"
-                          checked={props.values.remember === 1}
-                          onChange={(event) => props.setFieldValue("remember", event.target.checked ? 1 : 0)}
+                          checked={values.remember === 1}
+                          onChange={(event) => setFieldValue("remember", event.target.checked ? 1 : 0)}
                         />
                       }
                       label="Remember Me"
