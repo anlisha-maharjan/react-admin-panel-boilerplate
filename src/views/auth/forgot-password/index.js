@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as Mui from "@mui/material";
 import { connect } from "react-redux";
-import { forgotPassword, resetAuth } from "src/reduxs/actions";
 import { Formik, Form } from "formik";
-import { InputField } from "src/components/form";
 import * as Yup from "yup";
+import { forgotPassword, resetAuth } from "src/reduxs/actions";
+import { InputField } from "src/components/form";
 
 const ForgotPassword = (props) => {
   const schema = Yup.object().shape({

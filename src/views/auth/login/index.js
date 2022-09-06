@@ -118,6 +118,18 @@ const Login = (props) => {
               )}
             </Formik>
 
+            <Mui.Typography
+              component="p"
+              variant="body1"
+              className="mt-5 pt-2 font-weight-light text-color-white text-center"
+            >
+              Don't have account yet? Please use the <br />
+              <Link to={`/auth/register`} className="text-color-primary">
+                register form
+              </Link>
+              .
+            </Mui.Typography>
+
             <Mui.Typography component="p" variant="body1" className="mt-auto text-center copy">
               Copyright © 2021 @ SIERRA. All Rights Reserved.
             </Mui.Typography>

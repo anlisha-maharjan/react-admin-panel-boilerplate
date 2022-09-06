@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { logout } from "src/reduxs/actions";
 import { Navigate } from "react-router-dom";
-import { LayoutSplashScreen } from "src/configs/core";
+import { logout } from "src/reduxs/actions";
+import { LayoutSplashScreen } from "src/configs/splash-screen";
 
 const Logout = (props) => {
   useEffect(() => {

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import * as Mui from "@mui/material";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { verifyResetToken, resetPassword, resetAuth } from "src/reduxs/actions";
 import { Formik, Form } from "formik";
-import { InputField, InputHiddenField, InputPasswordField } from "src/components/form";
 import * as Yup from "yup";
-import { LayoutSplashScreen } from "src/configs/core";
+import { verifyResetToken, resetPassword, resetAuth } from "src/reduxs/actions";
+import { InputField, InputHiddenField, InputPasswordField } from "src/components/form";
+import { LayoutSplashScreen } from "src/configs/splash-screen";
 
 const ResetPassword = (props) => {
   const navigate = useNavigate();
