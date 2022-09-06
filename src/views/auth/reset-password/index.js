@@ -74,7 +74,7 @@ const ResetPassword = (props) => {
                   validationSchema={schema}
                   onSubmit={onResetPassword}
                 >
-                  {(props) => (
+                  {({ values }) => (
                     <Form className="default-form center">
                       <Mui.Grid container spacing={3}>
                         <InputHiddenField name="token" />

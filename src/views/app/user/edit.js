@@ -77,7 +77,7 @@ const EditUser = (props) => {
         validationSchema={schema}
         onSubmit={onSubmit}
       >
-        {(props) => (
+        {({ values, resetForm }) => (
           <Form className="default-form">
             <Mui.Card className="default-card">
               <Mui.Typography component="h4" variant="h4" className="mb-4 font-weight-medium">
@@ -148,7 +148,7 @@ const EditUser = (props) => {
                 type="button"
                 variant="text"
                 disableElevation
-                onClick={props.resetForm}
+                onClick={resetForm}
               >
                 Reset
               </Mui.Button>

@@ -65,7 +65,7 @@ const Login = (props) => {
               validationSchema={schema}
               onSubmit={onLogin}
             >
-              {(props) => (
+              {({ values, setFieldValue }) => (
                 <Form className="default-form center">
                   <Mui.Grid container spacing={3}>
                     <Mui.Grid className="form-group-dark" item xs={12}>
@@ -83,8 +83,8 @@ const Login = (props) => {
                       control={
                         <Mui.Checkbox
                           color="primary"
-                          checked={props.values.remember === 1}
-                          onChange={(event) => props.setFieldValue("remember", event.target.checked ? 1 : 0)}
+                          checked={values.remember === 1}
+                          onChange={(event) => setFieldValue("remember", event.target.checked ? 1 : 0)}
                         />
                       }
                       label="Remember Me"

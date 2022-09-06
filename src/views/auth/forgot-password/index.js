@@ -52,7 +52,7 @@ const ForgotPassword = (props) => {
             ) : null}
 
             <Formik initialValues={{ email: "" }} validationSchema={schema} onSubmit={onForgotPassword}>
-              {(props) => (
+              {({ values }) => (
                 <Form className="default-form center">
                   <Mui.Grid container spacing={3}>
                     <Mui.Grid className="form-group-dark" item xs={12}>
