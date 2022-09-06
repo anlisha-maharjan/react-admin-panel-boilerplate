@@ -33,12 +33,16 @@ const Sidenav = (props) => {
           className="text-color-side-nav svg-color-side-nav-icon"
           to={"/logout"}
           component={Link}
+          disableRipple
+          classes={{
+            root: "justify-content-start",
+          }}
         >
           Logout
         </Mui.Button>
 
         <Mui.Typography component="h6" variant="body2" className="font-weight-light text-color-side-nav">
-          © 2021 {document.title}. <br /> All rights reserved.
+          © 2022 Sierra. <br /> All rights reserved.
         </Mui.Typography>
       </Mui.Box>
     </>
