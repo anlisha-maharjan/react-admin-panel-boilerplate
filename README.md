@@ -1,11 +1,13 @@
 ## About
 
-Axon CMS was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aon CMS was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
-- Authentication modules such as Login, Forgot password and Reset password
+- Authentication modules such as Register, Login, Forgot password and Reset password
 - User management module
 - Idle timeout logout
+- React redux for managing and centralizing application state
+
 ## Requirements
 - Node
 - Node package manager (npm)
