@@ -1,6 +1,12 @@
 ## About
 
-Aon CMS was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The project is a React Admin Panel boilerplate that provides an architecture optimized for building solid web app with embedded authentication flow to help you kickstart new app.
+
+When starting new app I found myself repeatedly setting up my project with same packages over and over again so I decided to automate this process.
+
+While this mostly consists of how I organize my projects but can be easily extended to suit any workflow.
+
+Feel free to leave a ⭐ as motivation if this was useful to you 😊
 
 ## Features
 - Authentication modules such as Register, Login, Forgot password and Reset password
@@ -9,31 +15,46 @@ Aon CMS was bootstrapped with [Create React App](https://github.com/facebook/cre
 - React redux for managing and centralizing application state
 
 ## Requirements
-- Node
+- Node 16
 - Node package manager (npm)
 
-## Getting started 
-- npm install
-- Copy .env.example to .env
+## Context
+```bash
+- React (18.0.2)
+- Packages:
+    - MUI
+    - Redux
+    - React Redux
+    - Redux-Saga
+    - Formik
+    - Axios
+```
 
-## Available scripts
+## Development 
 
-In the project directory, you can run:
+```bash
+# Clone the repo
+git clone   
+cd react-aon-cms  
 
-### `npm start`
+# Dependencies  
+npm install  
 
-Runs the app in the development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Copy .env.example to .env
+cp .env.example .env
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+# Add APIURL in .env
+APIURL=
 
-### `npm run build`
+# Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.   
+npm start
 
-Builds the app for production to the `build` folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+## Build
 
-The build is minified and the filenames include the hashes.
-Your app is ready to be deployed!
+```bash
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+npm run build
+
+```
