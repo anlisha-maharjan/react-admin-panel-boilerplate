@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Routes, Route, Outlet } from "react-router-dom
 import { shallowEqual, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { LayoutSplashScreen } from "src/configs/splash-screen";
-import { Layout } from "src/layouts";
+import { Layout, AuthLayout } from "src/layouts";
 import IconView from "src/views/icon";
 import RegisterView from "src/views/auth/register";
 import VerifyUserView from "src/views/auth/verify-user";
@@ -31,7 +31,7 @@ export default function Root() {
         <Suspense fallback={<LayoutSplashScreen />}>
           <Routes>
             <Route path="/icon" element={<IconView />} />
-            <Route path="/auth" element={!isAuthorized ? <Outlet /> : <Navigate from="/auth" to="/" />}>
+            <Route path="/auth" element={!isAuthorized ? <AuthLayout /> : <Navigate from="/auth" to="/" />}>
               <Route index element={<Navigate to="/auth/login" />} />
               <Route path="/auth/register" element={<RegisterView />} />
               <Route path="/auth/verify-user/:token" element={<VerifyUserView />} />

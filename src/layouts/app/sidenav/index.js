@@ -14,7 +14,7 @@ const Sidenav = (props) => {
       ) : (
         <Mui.Toolbar className="cms-drawer__toolbar">
           <figure className="toolbar-logo">
-            <img src={sideNavConfig.primaryLogo} alt="Logo" />
+            <img src={sideNavConfig.primaryLogo} alt="Logo"/>
 
             <img className="small-logo" src={sideNavConfig.secondaryLogo} alt="Logo" />
           </figure>
