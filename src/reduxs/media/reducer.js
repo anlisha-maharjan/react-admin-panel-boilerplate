@@ -9,7 +9,7 @@ import {
   DOWNLOAD_MEDIA_SUCCESS,
   DOWNLOAD_MEDIA_ERROR,
   RESET_MEDIA,
-} from "../actions";
+} from "reduxs/actions";
 
 const INIT_STATE = {
   mediaFile: null,
@@ -19,7 +19,6 @@ const INIT_STATE = {
   fileName: null,
   mimeType: null,
   success: false,
-  message: null,
   loading: false,
   error: null,
 };
@@ -51,15 +50,13 @@ const mediaReducer = (state = INIT_STATE, action) => {
     case DELETE_MEDIA_SUCCESS:
       return {
         ...state,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case DELETE_MEDIA_ERROR:
       return {
         ...state,
         success: false,
-        message: null,
         error: action.payload,
       };
     case DOWNLOAD_MEDIA:
@@ -67,23 +64,21 @@ const mediaReducer = (state = INIT_STATE, action) => {
     case DOWNLOAD_MEDIA_SUCCESS:
       return {
         ...state,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case DOWNLOAD_MEDIA_ERROR:
       return {
         ...state,
         success: false,
-        message: null,
         error: action.payload,
       };
     case RESET_MEDIA:
       return {
         ...state,
+        mediaData: null,
         loading: false,
         success: false,
-        message: null,
         error: null,
       };
     default:

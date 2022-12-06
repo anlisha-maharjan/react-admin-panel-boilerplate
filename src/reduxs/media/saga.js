@@ -1,6 +1,7 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import MediaService from "src/services/media-service";
-import { UPLOAD_MEDIA, DELETE_MEDIA, DOWNLOAD_MEDIA } from "src/reduxs/actions";
+import saveAs from "file-saver";
+import MediaService from "services/MediaService";
+import { UPLOAD_MEDIA, DELETE_MEDIA, DOWNLOAD_MEDIA } from "reduxs/actions";
 import {
   uploadMediaSuccess,
   uploadMediaError,
@@ -9,9 +10,7 @@ import {
   downloadMediaSuccess,
   downloadMediaError,
 } from "./action";
-import saveAs from "file-saver";
-import { toast } from "react-toastify";
-import ToastElement from "src/components/toast";
+import { toaster, parseMessage, handleResponseErrorMessage } from "helpers";
 
 export function* watchUploadMedia() {
   yield takeEvery(UPLOAD_MEDIA, uploadMedia);
@@ -25,14 +24,17 @@ function* uploadMedia({ payload }) {
   try {
     const response = yield call(uploadMediaAsync, payload.mediaFile);
     if (response.data.success) {
-      let data = response.data.data;
+      const data = response.data.data;
       data.field = payload.field ? payload.field : "";
       yield put(uploadMediaSuccess(data));
     } else {
+      toaster("", response.data.message);
       yield put(uploadMediaError(response.data.message));
     }
   } catch (error) {
-    yield put(uploadMediaError(error.response.data.message));
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    yield put(uploadMediaError(errMessage));
+    toaster("error", errMessage);
   }
 }
 
@@ -48,14 +50,15 @@ function* deleteMedia({ payload }) {
   try {
     const response = yield call(deleteMediaAsync, payload.mediaId);
     if (response.data.success) {
-      yield put(
-        deleteMediaSuccess(response.data.success, response.data.message)
-      );
+      yield put(deleteMediaSuccess(response.data.success));
     } else {
+      toaster("", response.data.message);
       yield put(deleteMediaError(response.data.message));
     }
   } catch (error) {
-    yield put(deleteMediaError(error.response.data.message));
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    yield put(deleteMediaError(errMessage));
+    toaster("error", errMessage);
   }
 }
 
@@ -71,29 +74,21 @@ function* downloadMedia({ payload }) {
   try {
     const response = yield call(downloadMediaAsync, payload.mediaId);
     if (response && response.data) {
-      yield put(downloadMediaSuccess(true, ""));
+      toaster("success", response.data.message);
+      yield put(downloadMediaSuccess(true));
       const blob = new Blob([response.data], { type: payload.mimeType });
       saveAs(blob, payload.fileName);
     } else {
-      toast.error(
-        <ToastElement type="error" message={response.data.message} />,
-        { containerId: "default" }
-      );
+      toaster("", response.data.message);
       yield put(downloadMediaError(response.data.message));
     }
   } catch (error) {
-    toast.error(
-      <ToastElement type="error" message={error.response.data.message} />,
-      { containerId: "default" }
-    );
-    yield put(downloadMediaError(error.response.data.message));
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    yield put(downloadMediaError(errMessage));
+    toaster("error", errMessage);
   }
 }
 
 export default function* rootSaga() {
-  yield all([
-    fork(watchUploadMedia),
-    fork(watchDeleteMedia),
-    fork(watchDownloadMedia),
-  ]);
+  yield all([fork(watchUploadMedia), fork(watchDeleteMedia), fork(watchDownloadMedia)]);
 }
