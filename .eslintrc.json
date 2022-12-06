@@ -1,0 +1,54 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "google"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    },
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "requireConfigFile": false
+  },
+  "plugins": ["react", "react-hooks"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": ["**/build/*.js", "**/node_modules/*.js"],
+  "rules": {
+    "properties": "off",
+    "new-cap": "off",
+    "react/prop-types": "off",
+    "require-jsdoc": "off",
+    "no-invalid-this": "off",
+    "quotes": ["error", "double", { "allowTemplateLiterals": true, "avoidEscape": true }],
+    "quote-props": ["error", "as-needed"],
+    "linebreak-style": "off",
+    "indent": "off",
+    "camelcase": "off",
+    "object-curly-spacing": "off",
+    "max-len": "off",
+    "no-tabs": "off",
+    "space-before-function-paren": "off",
+    "operator-linebreak": "off",
+    "no-trailing-spaces": "off",
+    "comma-dangle": "off",
+    "spaced-comment": "off",
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": ["jsx", "js", "tsx"]
+      }
+    ]
+  }
+}
