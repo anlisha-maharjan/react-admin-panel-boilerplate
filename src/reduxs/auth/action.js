@@ -4,6 +4,9 @@ export const REGISTER_ERROR = "REGISTER_ERROR";
 export const VERIFY_USER = "VERIFY_USER";
 export const VERIFY_USER_SUCCESS = "VERIFY_USER_SUCCESS";
 export const VERIFY_USER_ERROR = "VERIFY_USER_ERROR";
+export const INITIAL_CHANGE_PASSWORD = "INITIAL_CHANGE_PASSWORD";
+export const INITIAL_CHANGE_PASSWORD_SUCCESS = "INITIAL_CHANGE_PASSWORD_SUCCESS";
+export const INITIAL_CHANGE_PASSWORD_ERROR = "INITIAL_CHANGE_PASSWORD_ERROR";
 export const LOGIN = "LOGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
@@ -16,6 +19,12 @@ export const VERIFY_RESET_TOKEN_ERROR = "VERIFY_RESET_TOKEN_ERROR";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESSf";
 export const RESET_PASSWORD_ERROR = "RESET_PASSWORD_ERROR";
+export const VERIFY_EMAIL = "VERIFY_EMAIL";
+export const VERIFY_EMAIL_SUCCESS = "VERIFY_EMAIL_SUCCESS";
+export const VERIFY_EMAIL_ERROR = "VERIFY_EMAIL_ERROR";
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
+export const CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR";
 export const LOGOUT = "LOGOUT";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
@@ -26,9 +35,9 @@ export const register = (registerData) => ({
   payload: { registerData },
 });
 
-export const registerSuccess = (success, message) => ({
+export const registerSuccess = (success) => ({
   type: REGISTER_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const registerError = (error) => ({
@@ -41,13 +50,28 @@ export const verifyUser = (token, navigate) => ({
   payload: { token, navigate },
 });
 
-export const verifyUserSuccess = (success, message) => ({
+export const verifyUserSuccess = (success, user) => ({
   type: VERIFY_USER_SUCCESS,
-  payload: { success, message },
+  payload: { success, user },
 });
 
 export const verifyUserError = (error) => ({
   type: VERIFY_USER_ERROR,
+  payload: error,
+});
+
+export const initialChangePassword = (changePasswordData, navigate) => ({
+  type: INITIAL_CHANGE_PASSWORD,
+  payload: { changePasswordData, navigate },
+});
+
+export const initialChangePasswordSuccess = (success, user) => ({
+  type: INITIAL_CHANGE_PASSWORD_SUCCESS,
+  payload: { success, user },
+});
+
+export const initialChangePasswordError = (error) => ({
+  type: INITIAL_CHANGE_PASSWORD_ERROR,
   payload: error,
 });
 
@@ -71,9 +95,9 @@ export const forgotPassword = (forgotPasswordData) => ({
   payload: { forgotPasswordData },
 });
 
-export const forgotPasswordSuccess = (success, message) => ({
+export const forgotPasswordSuccess = (success) => ({
   type: FORGOT_PASSWORD_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const forgotPasswordError = (error) => ({
@@ -86,9 +110,9 @@ export const verifyResetToken = (token, navigate) => ({
   payload: { token, navigate },
 });
 
-export const verifyResetTokenSuccess = (success, message) => ({
+export const verifyResetTokenSuccess = (success) => ({
   type: VERIFY_RESET_TOKEN_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const verifyResetTokenError = (error) => ({
@@ -101,9 +125,9 @@ export const resetPassword = (resetPasswordData, navigate) => ({
   payload: { resetPasswordData, navigate },
 });
 
-export const resetPasswordSuccess = (success, message) => ({
+export const resetPasswordSuccess = (success) => ({
   type: RESET_PASSWORD_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const resetPasswordError = (error) => ({
@@ -111,15 +135,45 @@ export const resetPasswordError = (error) => ({
   payload: error,
 });
 
-export const logout = (navigate) => ({
-  type: LOGOUT,
-  payload: { navigate },
+export const changePassword = (changePasswordData) => ({
+  type: CHANGE_PASSWORD,
+  payload: { changePasswordData },
 });
 
-export const logoutSuccess = (success, message) => {
+export const changePasswordSuccess = (success) => ({
+  type: CHANGE_PASSWORD_SUCCESS,
+  payload: success,
+});
+
+export const changePasswordError = (error) => ({
+  type: CHANGE_PASSWORD_ERROR,
+  payload: error,
+});
+
+export const verifyEmail = (token, navigate) => ({
+  type: VERIFY_EMAIL,
+  payload: { token, navigate },
+});
+
+export const verifyEmailSuccess = (success, user) => ({
+  type: VERIFY_EMAIL_SUCCESS,
+  payload: { success, user },
+});
+
+export const verifyEmailError = (error) => ({
+  type: VERIFY_EMAIL_ERROR,
+  payload: error,
+});
+
+export const logout = () => ({
+  type: LOGOUT,
+  payload: {},
+});
+
+export const logoutSuccess = (success) => {
   return {
     type: LOGOUT_SUCCESS,
-    payload: { success, message },
+    payload: success,
   };
 };
 
