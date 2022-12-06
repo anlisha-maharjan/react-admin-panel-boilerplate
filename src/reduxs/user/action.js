@@ -13,12 +13,12 @@ export const GET_USER_ERROR = "GET_USER_ERROR";
 export const EDIT_USER = "EDIT_USER";
 export const EDIT_USER_SUCCESS = "EDIT_USER_SUCCESS";
 export const EDIT_USER_ERROR = "EDIT_USER_ERROR";
+export const RESEND_VERIFICATION_CODE = "RESEND_VERIFICATION_CODE";
+export const RESEND_VERIFICATION_CODE_SUCCESS = "RESEND_VERIFICATION_CODE_SUCCESS";
+export const RESEND_VERIFICATION_CODE_ERROR = "RESEND_VERIFICATION_CODE_ERROR";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
 export const DELETE_USER_ERROR = "DELETE_USER_ERROR";
-export const DELETE_MULTIPLE_USER = "DELETE_MULTIPLE_USER";
-export const DELETE_MULTIPLE_USER_SUCCESS = "DELETE_MULTIPLE_USER_SUCCESS";
-export const DELETE_MULTIPLE_USER_ERROR = "DELETE_MULTIPLE_USER_ERROR";
 export const RESET_USER = "RESET_USER";
 
 export const getAllUser = () => ({
@@ -41,9 +41,9 @@ export const getUserList = (dbParam) => ({
   payload: { dbParam },
 });
 
-export const getUserListSuccess = (userList) => ({
+export const getUserListSuccess = (userList, metaData) => ({
   type: GET_USER_LIST_SUCCESS,
-  payload: userList,
+  payload: { userList, metaData },
 });
 
 export const getUserListError = (error) => ({
@@ -56,9 +56,9 @@ export const addUser = (userData, navigate) => ({
   payload: { userData, navigate },
 });
 
-export const addUserSuccess = (success, message) => ({
+export const addUserSuccess = (success) => ({
   type: ADD_USER_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const addUserError = (error) => ({
@@ -86,13 +86,28 @@ export const editUser = (userId, userData, navigate) => ({
   payload: { userId, userData, navigate },
 });
 
-export const editUserSuccess = (success, message) => ({
+export const editUserSuccess = (success) => ({
   type: EDIT_USER_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const editUserError = (error) => ({
   type: EDIT_USER_ERROR,
+  payload: error,
+});
+
+export const resendVerificationCode = (userId) => ({
+  type: RESEND_VERIFICATION_CODE,
+  payload: { userId },
+});
+
+export const resendVerificationCodeSuccess = (success) => ({
+  type: RESEND_VERIFICATION_CODE_SUCCESS,
+  payload: success,
+});
+
+export const resendVerificationCodeError = (error) => ({
+  type: RESEND_VERIFICATION_CODE_ERROR,
   payload: error,
 });
 
@@ -101,28 +116,13 @@ export const deleteUser = (userId) => ({
   payload: { userId },
 });
 
-export const deleteUserSuccess = (success, message) => ({
+export const deleteUserSuccess = (success) => ({
   type: DELETE_USER_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const deleteUserError = (error) => ({
   type: DELETE_USER_ERROR,
-  payload: error,
-});
-
-export const deleteMultipleUser = (userIds) => ({
-  type: DELETE_MULTIPLE_USER,
-  payload: { userIds },
-});
-
-export const deleteMultipleUserSuccess = (success, message) => ({
-  type: DELETE_MULTIPLE_USER_SUCCESS,
-  payload: { success, message },
-});
-
-export const deleteMultipleUserError = (error) => ({
-  type: DELETE_MULTIPLE_USER_ERROR,
   payload: error,
 });
 

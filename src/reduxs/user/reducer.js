@@ -14,26 +14,26 @@ import {
   EDIT_USER,
   EDIT_USER_SUCCESS,
   EDIT_USER_ERROR,
+  RESEND_VERIFICATION_CODE,
+  RESEND_VERIFICATION_CODE_SUCCESS,
+  RESEND_VERIFICATION_CODE_ERROR,
   DELETE_USER,
   DELETE_USER_SUCCESS,
   DELETE_USER_ERROR,
-  DELETE_MULTIPLE_USER,
-  DELETE_MULTIPLE_USER_SUCCESS,
-  DELETE_MULTIPLE_USER_ERROR,
   RESET_USER,
-} from "src/reduxs/actions";
+} from "reduxs/actions";
 
 const INIT_STATE = {
   dbParam: null,
   users: null,
   userList: null,
+  metaData: null,
   userData: null,
   userId: null,
-  userIds: null,
   success: false,
-  message: null,
   loading: false,
-  loading1: false,
+  delLoading: false,
+  codeLoading: false,
   error: null,
 };
 
@@ -62,14 +62,14 @@ const userReducer = (state = INIT_STATE, action) => {
         loading: true,
         userData: null,
         userId: null,
-        userIds: null,
         error: null,
       };
     case GET_USER_LIST_SUCCESS:
       return {
         ...state,
         loading: false,
-        userList: action.payload,
+        userList: action.payload.userList,
+        metaData: action.payload.metaData,
         error: null,
       };
     case GET_USER_LIST_ERROR:
@@ -85,8 +85,7 @@ const userReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case ADD_USER_ERROR:
@@ -94,7 +93,6 @@ const userReducer = (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
         error: action.payload,
       };
     case GET_USER:
@@ -117,8 +115,7 @@ const userReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case EDIT_USER_ERROR:
@@ -126,52 +123,47 @@ const userReducer = (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
+        error: action.payload,
+      };
+    case RESEND_VERIFICATION_CODE:
+      return { ...state, codeLoading: true, error: null };
+    case RESEND_VERIFICATION_CODE_SUCCESS:
+      return {
+        ...state,
+        codeLoading: false,
+        success: action.payload,
+        error: null,
+      };
+    case RESEND_VERIFICATION_CODE_ERROR:
+      return {
+        ...state,
+        codeLoading: false,
+        success: false,
         error: action.payload,
       };
     case DELETE_USER:
-      return { ...state, loading1: true, error: null };
+      return { ...state, delLoading: true, error: null };
     case DELETE_USER_SUCCESS:
       return {
         ...state,
-        loading1: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        delLoading: false,
+        success: action.payload,
         error: null,
       };
     case DELETE_USER_ERROR:
       return {
         ...state,
-        loading1: false,
+        delLoading: false,
         success: false,
-        message: null,
-        error: action.payload,
-      };
-    case DELETE_MULTIPLE_USER:
-      return { ...state, loading1: true, error: null };
-    case DELETE_MULTIPLE_USER_SUCCESS:
-      return {
-        ...state,
-        loading1: false,
-        success: action.payload.success,
-        message: action.payload.message,
-        error: null,
-      };
-    case DELETE_MULTIPLE_USER_ERROR:
-      return {
-        ...state,
-        loading1: false,
-        success: false,
-        message: null,
         error: action.payload,
       };
     case RESET_USER:
       return {
         ...state,
         loading: false,
-        loading1: false,
+        delLoading: false,
+        codeLoading: false,
         success: false,
-        message: null,
         error: null,
       };
     default:
