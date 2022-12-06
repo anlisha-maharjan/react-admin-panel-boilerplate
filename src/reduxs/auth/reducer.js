@@ -5,6 +5,9 @@ import {
   VERIFY_USER,
   VERIFY_USER_SUCCESS,
   VERIFY_USER_ERROR,
+  INITIAL_CHANGE_PASSWORD,
+  INITIAL_CHANGE_PASSWORD_ERROR,
+  INITIAL_CHANGE_PASSWORD_SUCCESS,
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
@@ -17,23 +20,29 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
+  VERIFY_EMAIL,
+  VERIFY_EMAIL_SUCCESS,
+  VERIFY_EMAIL_ERROR,
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_ERROR,
   LOGOUT,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
   RESET_AUTH,
-} from "src/reduxs/actions";
+} from "reduxs/actions";
 
 const INIT_STATE = {
   forgotPasswordData: null,
   resetPasswordData: null,
+  changePasswordData: null,
   registerData: null,
   loginData: null,
   token: null,
   user: JSON.parse(localStorage.getItem("currentUser")),
   success: false,
-  message: null,
   loading: false,
-  loading1: false,
+  tokenLoading: false,
   error: null,
 };
 
@@ -45,8 +54,7 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case REGISTER_ERROR:
@@ -54,25 +62,46 @@ const authReducer = (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
         error: action.payload,
       };
     case VERIFY_USER:
-      return { ...state, loading: true, error: null };
+      return { ...state, tokenLoading: true, error: null };
     case VERIFY_USER_SUCCESS:
       return {
         ...state,
-        loading: false,
+        tokenLoading: false,
         success: action.payload.success,
-        message: action.payload.message,
+        user: action.payload.user,
         error: null,
       };
     case VERIFY_USER_ERROR:
       return {
         ...state,
+        tokenLoading: false,
+        success: false,
+        user: null,
+        error: action.payload,
+      };
+    case INITIAL_CHANGE_PASSWORD:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case INITIAL_CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload.success,
+        user: action.payload.user,
+        error: null,
+      };
+    case INITIAL_CHANGE_PASSWORD_ERROR:
+      return {
+        ...state,
         loading: false,
         success: false,
-        message: null,
+        user: null,
         error: action.payload,
       };
     case LOGIN:
@@ -92,8 +121,7 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case FORGOT_PASSWORD_ERROR:
@@ -101,25 +129,22 @@ const authReducer = (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
         error: action.payload,
       };
     case VERIFY_RESET_TOKEN:
-      return { ...state, loading1: true, error: null };
+      return { ...state, tokenLoading: true, error: null };
     case VERIFY_RESET_TOKEN_SUCCESS:
       return {
         ...state,
-        loading1: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        tokenLoading: false,
+        success: action.payload,
         error: null,
       };
     case VERIFY_RESET_TOKEN_ERROR:
       return {
         ...state,
-        loading1: false,
+        tokenLoading: false,
         success: false,
-        message: null,
         error: action.payload,
       };
     case RESET_PASSWORD:
@@ -128,8 +153,7 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         loading: false,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case RESET_PASSWORD_ERROR:
@@ -137,7 +161,40 @@ const authReducer = (state = INIT_STATE, action) => {
         ...state,
         loading: false,
         success: false,
-        message: null,
+        error: action.payload,
+      };
+    case VERIFY_EMAIL:
+      return { ...state, tokenLoading: true, error: null };
+    case VERIFY_EMAIL_SUCCESS:
+      return {
+        ...state,
+        tokenLoading: false,
+        success: action.payload.success,
+        user: action.payload.user,
+        error: null,
+      };
+    case VERIFY_EMAIL_ERROR:
+      return {
+        ...state,
+        tokenLoading: false,
+        success: false,
+        user: null,
+        error: action.payload,
+      };
+    case CHANGE_PASSWORD:
+      return { ...state, loading: true, error: null };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: action.payload,
+        error: null,
+      };
+    case CHANGE_PASSWORD_ERROR:
+      return {
+        ...state,
+        loading: false,
+        success: false,
         error: action.payload,
       };
     case LOGOUT:
@@ -149,8 +206,7 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         user: null,
-        success: action.payload.success,
-        message: action.payload.message,
+        success: action.payload,
         error: null,
       };
     case LOGOUT_ERROR:
@@ -163,9 +219,8 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         success: false,
-        message: null,
         loading: false,
-        loading1: false,
+        tokenLoading: false,
         error: null,
       };
     default:

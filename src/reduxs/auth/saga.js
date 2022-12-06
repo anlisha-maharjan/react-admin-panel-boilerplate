@@ -1,19 +1,24 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import AuthService from "src/services/auth-service";
+import AuthService from "services/AuthService";
 import {
   REGISTER,
   VERIFY_USER,
+  INITIAL_CHANGE_PASSWORD,
   LOGIN,
   FORGOT_PASSWORD,
   VERIFY_RESET_TOKEN,
   RESET_PASSWORD,
+  VERIFY_EMAIL,
+  CHANGE_PASSWORD,
   LOGOUT,
-} from "src/reduxs/actions";
+} from "reduxs/actions";
 import {
   registerSuccess,
   registerError,
   verifyUserSuccess,
   verifyUserError,
+  initialChangePasswordSuccess,
+  initialChangePasswordError,
   loginSuccess,
   loginError,
   forgotPasswordSuccess,
@@ -22,10 +27,14 @@ import {
   verifyResetTokenError,
   resetPasswordSuccess,
   resetPasswordError,
+  verifyEmailSuccess,
+  verifyEmailError,
   logoutSuccess,
+  changePasswordSuccess,
+  changePasswordError,
   logoutError,
 } from "./action";
-import { parseMessage } from "src/helpers/util";
+import { toaster, parseMessage, handleResponseErrorMessage } from "helpers";
 
 export function* watchRegister() {
   yield takeEvery(REGISTER, register);
@@ -39,14 +48,15 @@ function* register({ payload }) {
   try {
     const response = yield call(registerAsync, payload.registerData);
     if (response.data.success) {
-      yield put(registerSuccess(response.data.success, response.data.message));
+      yield put(registerSuccess(response.data.success));
     } else {
+      toaster("", response.data.message);
       yield put(registerError(response.data.message));
     }
   } catch (error) {
-    yield put(
-      registerError(parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message))
-    );
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    yield put(registerError(errMessage));
+    toaster("error", errMessage);
   }
 }
 
@@ -62,25 +72,55 @@ function* verifyUser({ payload }) {
   try {
     const response = yield call(verifyUserAsync, payload.token);
     if (response.data.success) {
-      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
-      localStorage.setItem("token", response.data.data.token);
-      yield put(verifyUserSuccess(response.data.success, response.data.message));
-      payload.navigate("/dashboard");
+      toaster("success", response.data.message);
+      yield put(verifyUserSuccess(response.data.success, response.data.data));
+      if (response?.data?.data?.token) {
+        localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+        localStorage.setItem("token", response.data.data.token);
+      }
+      payload.navigate(
+        response?.data?.data?.token
+          ? "/dashboard"
+          : `/auth/initial-change-password/${response?.data?.data?.userId}/${response?.data?.data?.verificationCode}`
+      );
     } else {
+      toaster("", response.data.message);
       yield put(verifyUserError(response.data.message));
-      payload.navigate("/auth/login", {
-        state: { responseMsg: response.data.message },
-      });
+      payload.navigate("/auth/login");
     }
   } catch (error) {
-    payload.navigate("/auth/login", {
-      state: {
-        responseMsg: parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message),
-      },
-    });
-    yield put(
-      verifyUserError(parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message))
-    );
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    payload.navigate("/auth/login");
+    toaster("error", errMessage);
+    yield put(verifyUserError(errMessage));
+  }
+}
+
+export function* watchInitialChangePassword() {
+  yield takeEvery(INITIAL_CHANGE_PASSWORD, initialChangePassword);
+}
+
+const initialChangePasswordAsyc = async (data) => {
+  return AuthService.initialChangePassword(data);
+};
+
+function* initialChangePassword({ payload }) {
+  try {
+    const response = yield call(initialChangePasswordAsyc, payload.changePasswordData);
+    if (response.data.success) {
+      yield put(initialChangePasswordSuccess(response.data.success, response.data.data));
+      toaster("success", response.data.message);
+      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+      localStorage.setItem("token", response.data.data.token);
+      payload.navigate("/dashboard");
+    } else {
+      toaster("error", response.data.message);
+      yield put(initialChangePasswordError(response.data.message));
+    }
+  } catch (error) {
+    const errMessage = handleResponseErrorMessage(parseMessage(error));
+    toaster("error", errMessage);
+    yield put(initialChangePasswordError(errMessage));
   }
 }
 
@@ -96,6 +136,7 @@ function* login({ payload }) {
   try {
     const response = yield call(loginAsync, payload.loginData);
     if (response.data.success) {
+      toaster("success", response.data.message);
       localStorage.setItem("currentUser", JSON.stringify(response.data.data));
       localStorage.setItem("token", response.data.data.token);
       yield put(loginSuccess(response.data.data));
@@ -110,12 +151,13 @@ function* login({ payload }) {
       }
       payload.navigate("/dashboard");
     } else {
+      toaster("", response.data.message);
       yield put(loginError(response.data.message));
     }
   } catch (error) {
-    yield put(
-      loginError(parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message))
-    );
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(loginError(errMessage));
   }
 }
 
@@ -131,16 +173,16 @@ function* forgotPassword({ payload }) {
   try {
     const response = yield call(forgotPasswordAsync, payload.forgotPasswordData);
     if (response.data.success) {
-      yield put(forgotPasswordSuccess(response.data.success, response.data.message));
+      toaster("success", response.data.message);
+      yield put(forgotPasswordSuccess(response.data.success));
     } else {
+      toaster("", response.data.message);
       yield put(forgotPasswordError(response.data.message));
     }
   } catch (error) {
-    yield put(
-      forgotPasswordError(
-        parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message)
-      )
-    );
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(forgotPasswordError(errMessage));
   }
 }
 
@@ -156,24 +198,17 @@ function* verifyResetToken({ payload }) {
   try {
     const response = yield call(verifyResetTokenAsync, payload.token);
     if (response.data.success) {
-      yield put(verifyResetTokenSuccess(response.data.success, response.data.message));
+      yield put(verifyResetTokenSuccess(response.data.success));
     } else {
-      payload.navigate("/auth/login", {
-        state: { responseMsg: response.data.message },
-      });
+      toaster("", response.data.message);
+      payload.navigate("/auth/login");
       yield put(verifyResetTokenError(response.data.message));
     }
   } catch (error) {
-    payload.navigate("/auth/login", {
-      state: {
-        responseMsg: parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message),
-      },
-    });
-    yield put(
-      verifyResetTokenError(
-        parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message)
-      )
-    );
+    payload.navigate("/auth/login");
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(verifyResetTokenError(errMessage));
   }
 }
 
@@ -189,19 +224,71 @@ function* resetPassword({ payload }) {
   try {
     const response = yield call(resetPasswordAsync, payload.resetPasswordData);
     if (response.data.success) {
-      yield put(resetPasswordSuccess(response.data.success, response.data.message));
-      payload.navigate("/auth/login", {
-        state: { responseMsg: response.data.message },
-      });
+      toaster("success", response.data.message);
+      yield put(resetPasswordSuccess(response.data.success));
+      payload.navigate("/auth/login");
     } else {
+      toaster("", response.data.message);
       yield put(resetPasswordError(response.data.message));
     }
   } catch (error) {
-    yield put(
-      resetPasswordError(
-        parseMessage(error.response.data.error ? error.response.data.error : error.response.data.message)
-      )
-    );
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(resetPasswordError(errMessage));
+  }
+}
+
+export function* watchVerifyEmail() {
+  yield takeEvery(VERIFY_EMAIL, verifyEmail);
+}
+
+const verifyEmailAsync = async (token) => {
+  return AuthService.verifyEmail(token);
+};
+
+function* verifyEmail({ payload }) {
+  try {
+    const response = yield call(verifyEmailAsync, payload.token);
+    if (response.data.success) {
+      yield put(verifyEmailSuccess(response.data.success, response.data.data));
+      toaster("success", response.data.message);
+      localStorage.setItem("currentUser", JSON.stringify(response.data.data));
+      localStorage.setItem("token", response.data.data.token);
+      payload.navigate("/dashboard");
+    } else {
+      toaster("", response.data.message);
+      payload.navigate("/auth/login");
+      yield put(verifyEmailError(response.data.message));
+    }
+  } catch (error) {
+    payload.navigate("/auth/login");
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(verifyEmailError(errMessage));
+  }
+}
+
+export function* watchChangePassword() {
+  yield takeEvery(CHANGE_PASSWORD, changePassword);
+}
+const changePasswordAsync = async (data) => {
+  return AuthService.changePassword(data);
+};
+
+function* changePassword({ payload }) {
+  try {
+    const response = yield call(changePasswordAsync, payload.changePasswordData);
+    if (response.data.success) {
+      toaster("success", response.data.message);
+      yield put(changePasswordSuccess(response.data.success));
+    } else {
+      yield put(changePasswordError(response.data.message));
+      toaster("error", response.data.message);
+    }
+  } catch (error) {
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(changePasswordError(errMessage));
   }
 }
 
@@ -217,18 +304,20 @@ function* logout() {
   try {
     const response = yield call(logoutAsync);
     if (response.data.success) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("currentUser");
-      yield put(logoutSuccess(response.data.success, response.data.message));
+      toaster("success", response.data.message);
+      yield put(logoutSuccess(response.data.success));
     } else {
-      localStorage.removeItem("token");
-      localStorage.removeItem("currentUser");
+      toaster("", response.data.message);
       yield put(logoutError(response.data.message));
     }
+    localStorage.removeItem("token");
+    localStorage.removeItem("currentUser");
   } catch (error) {
     localStorage.removeItem("token");
     localStorage.removeItem("currentUser");
-    yield put(logoutError(error.response.data.message));
+    const errMessage = parseMessage(handleResponseErrorMessage(error));
+    toaster("error", errMessage);
+    yield put(logoutError(errMessage));
   }
 }
 
@@ -236,10 +325,13 @@ export default function* rootSaga() {
   yield all([
     fork(watchRegister),
     fork(watchVerifyUser),
+    fork(watchInitialChangePassword),
     fork(watchLogin),
     fork(watchForgotPassword),
     fork(watchVerifyResetToken),
     fork(watchResetPassword),
+    fork(watchVerifyEmail),
+    fork(watchChangePassword),
     fork(watchLogout),
   ]);
 }

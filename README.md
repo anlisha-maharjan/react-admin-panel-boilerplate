@@ -11,7 +11,6 @@ Feel free to leave a ⭐ as motivation if this was useful to you 😊
 ## Features
 - Authentication modules such as Register, Login, Forgot password and Reset password
 - User management module
-- Idle timeout logout
 - React redux for managing and centralizing application state
 
 ## Requirements
@@ -28,6 +27,7 @@ Feel free to leave a ⭐ as motivation if this was useful to you 😊
     - Redux-Saga
     - Formik
     - Axios
+    - Tailwind CSS
 ```
 
 ## Development 

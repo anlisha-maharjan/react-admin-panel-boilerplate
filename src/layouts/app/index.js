@@ -1,106 +1,73 @@
-import React, { useState, useEffect } from "react";
-import * as Mui from "@mui/material";
-import { IdleTimeoutManager } from "idle-timer-manager";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { toolBarConfig, sideNavConfig } from "src/configs/constant";
-import Topnav from "./topnav";
+import * as Mui from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import useWidth from "hooks/useWidth";
+import { getPermission } from "reduxs/actions";
+import { sideNavConfig } from "configs/LayoutConfig";
 import Sidenav from "./sidenav";
+import AppBar from "./appbar";
 
-const Layout = (props) => {
-  const theme = useTheme();
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [drawerCollapse, setDrawerCollapse] = useState(false);
-  const [drawerHover, setDrawerHover] = useState(false);
+const Layout = () => {
+  const theme = Mui.useTheme();
+  const width = useWidth();
+  const dispatch = useDispatch();
 
-  const isWidthUpLg = useMediaQuery(theme.breakpoints.up("lg"));
-  const isWidthUpMd = useMediaQuery(theme.breakpoints.up("md"));
+  const { user } = useSelector((state) => state.auth);
+  const { permissionList } = useSelector((state) => state.shared);
 
-  const hanndelMobileDrawerOpenToggle = () => {
-    setMobileDrawerOpen(!mobileDrawerOpen);
+  const [open, setOpen] = React.useState(Mui.useMediaQuery(theme.breakpoints.down(sideNavConfig.collapseStateBelow)));
+
+  const handleDrawerState = () => {
+    setOpen(!open);
   };
 
-  const hanndelDrawerCollapseToggle = () => {
-    setDrawerCollapse(!drawerCollapse);
-  };
-
-  const onHoverDrawer = (hover) => {
-    if (drawerCollapse && sideNavConfig.expandOnHover && !sideNavConfig.hoverSubMenu) {
-      if (hover === "enter") {
-        setDrawerHover(true);
-      } else if (hover === "leave") {
-        setDrawerHover(false);
-      }
-    }
-  };
-
-  const _onIdle = () => {};
-
-  const checkSmallDevices = () => {
-    if (isWidthUpLg) {
-      // if (Mui.isWidthUp("lg", this.props.width)) {
-      setDrawerCollapse(sideNavConfig.collapseState.lg);
-    } else if (isWidthUpMd) {
-      // } else if (Mui.isWidthUp("md", this.props.width)) {
-      setDrawerCollapse(sideNavConfig.collapseState.md);
-    } else {
-      setDrawerCollapse(false);
-    }
+  const handleCloseDrawer = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
-    checkSmallDevices();
-    const manager = new IdleTimeoutManager({
-      timeout: 600, // 10 min
-      onExpired: (time) => {
-        _onIdle();
-      },
-    });
+    if (width !== sideNavConfig.collapseStateBelow) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, [width]);
 
-    // Set Side Nav Layout Colors
-    document.documentElement.style.setProperty("--side-nav-bg", sideNavConfig.bgColor);
-    document.documentElement.style.setProperty("--side-nav-text-color", sideNavConfig.textColor);
-    document.documentElement.style.setProperty("--side-nav-icon-color", sideNavConfig.iconColor);
-    document.documentElement.style.setProperty("--side-nav-active-color", sideNavConfig.activeColor);
-    document.documentElement.style.setProperty("--side-nav-hover-submenu-color", sideNavConfig.hoverSubmenubg);
-
-    // Set Top Bar Layout Colors
-    document.documentElement.style.setProperty("--toolbar-bg", toolBarConfig.bgColor);
-    document.documentElement.style.setProperty("--toolbar-text-color", toolBarConfig.textColor);
-    document.documentElement.style.setProperty("--toolbar-icon-color", toolBarConfig.iconColor);
-
-    return () => {
-      manager.clear();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    if (user) dispatch(getPermission());
+  }, [user]);
 
   return (
-    <>
-      <Mui.Drawer
-        className={`cms-drawer ${drawerCollapse ? "collapsed" : "expanded"} ${drawerHover ? "hover-expand" : ""}`}
-        variant={isWidthUpMd ? "permanent" : "temporary"}
-        // variant={Mui.isWidthUp("md", props.width) ? "permanent" : "temporary"}
-        onMouseEnter={() => onHoverDrawer("enter")}
-        onMouseLeave={() => onHoverDrawer("leave")}
-        open={mobileDrawerOpen}
-        onClose={hanndelMobileDrawerOpenToggle}
-        anchor="left"
+    <Mui.Box display="flex">
+      <Sidenav
+        permissionList={permissionList}
+        drawerOpen={open}
+        handleOnCloseDrawer={handleCloseDrawer}
+        handleDrawerCollapse={handleDrawerState}
+      />
+
+      <Mui.Box
+        component="main"
+        sx={{
+          maxWidth: {
+            xl: open
+              ? `calc(100% - ${sideNavConfig.drawerWidth.large}px)`
+              : `calc(100% - ${sideNavConfig.drawerWidth.small}px)`,
+          },
+          width: "100%",
+          height: "100vh",
+          flex: 1,
+          ml: "auto",
+        }}
       >
-        <Sidenav closeDrawer={hanndelMobileDrawerOpenToggle} />
-      </Mui.Drawer>
+        <AppBar handleDrawerCollapse={handleDrawerState} />
 
-      <main className={`cms-drawer-content ${drawerCollapse ? "collapsed" : "expanded"}`}>
-        <Topnav toggleSideNav={hanndelDrawerCollapseToggle} toggleMobileSideNav={hanndelMobileDrawerOpenToggle} />
-
-        {toolBarConfig.style === "fixed" ? <Mui.Toolbar className="placeholder-toolbar" /> : null}
-
-        <Mui.Container className="cms-body container-fluid" maxWidth={false}>
+        <Mui.Container maxWidth="xl" sx={{ pt: 4, pb: 8 }}>
           <Outlet />
         </Mui.Container>
-      </main>
-    </>
+      </Mui.Box>
+    </Mui.Box>
   );
 };
 

@@ -29,9 +29,9 @@ export const deleteMedia = (mediaId) => ({
   payload: { mediaId },
 });
 
-export const deleteMediaSuccess = (success, message) => ({
+export const deleteMediaSuccess = (success) => ({
   type: DELETE_MEDIA_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const deleteMediaError = (error) => ({
@@ -44,9 +44,9 @@ export const downloadMedia = (mediaId, fileName, mimeType) => ({
   payload: { mediaId, fileName, mimeType },
 });
 
-export const downloadMediaSuccess = (success, message) => ({
+export const downloadMediaSuccess = (success) => ({
   type: DOWNLOAD_MEDIA_SUCCESS,
-  payload: { success, message },
+  payload: success,
 });
 
 export const downloadMediaError = (error) => ({

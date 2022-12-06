@@ -1,17 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { SplashScreenProvider } from "src/configs/splash-screen";
 import reportWebVitals from "./reportWebVitals";
+import { SplashScreenProvider } from "configs/LayoutSplashScreen";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles/main.css";
 import App from "./App";
-import "./assets/scss/main.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <SplashScreenProvider>
-      <App />
-    </SplashScreenProvider>
-  </React.StrictMode>
+  // <React.StrictMode> // Enabling StrictMode causes twice re-rendering
+  <SplashScreenProvider>
+    <App />
+  </SplashScreenProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

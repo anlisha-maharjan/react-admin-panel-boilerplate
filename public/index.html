@@ -2,23 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon/favicon.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1A2225" />
-
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/favicon/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon/favicon-16x16.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/favicon/site.webmanifest" />
-    <link rel="mask-icon" href="%PUBLIC_URL%/favicon/safari-pinned-tab.svg" color="#5bbad5" />
     <meta name="msapplication-TileColor" content="#da532c" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet"/>
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!-- <script type="text/javascript"
-    src="https://maps.googleapis.com/maps/api/js?key=&libraries=places"></script> -->
+   <!-- Google Places API -->
+   <script type="text/javascript"
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9eCO3FSfoXGU5le3VF1f-Oh_2PSEP_UM&libraries=places"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -30,11 +28,12 @@
     -->
     <!-- SPLASH SCREEN-->
     <link rel="stylesheet" id="layout-styles-anchor" href="%PUBLIC_URL%/splash-screen.css" />
+    <title>Sierra</title>
   </head>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" style="width: 100%; height: 100%; display: flex; flex-wrap: wrap"></div>
+    <div id="root" style="width:100vw; height:100vh; overflow:auto;"></div>
     <!--
     This HTML file is a template.
     If you open it directly in the browser, you will see an empty page.
