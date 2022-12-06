@@ -1,4 +1,4 @@
-import Req from "src/interceptors/token-interceptor";
+// import Req from "interceptors/TokenInterceptor";
 
 const DashboardService = (function () {
   return {};

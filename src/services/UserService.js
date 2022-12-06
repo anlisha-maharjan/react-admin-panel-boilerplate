@@ -1,4 +1,4 @@
-import Req from "src/interceptors/token-interceptor";
+import Req from "interceptors/TokenInterceptor";
 
 const UserService = (function () {
   function _getAllUser() {
@@ -13,23 +13,19 @@ const UserService = (function () {
   function _editUser(data, id) {
     return Req.put("/api/users/" + id, data);
   }
+  function _resendVerificationCode(id) {
+    return Req.get(`/api/users/verificationCode/${id}`);
+  }
   function _deleteUser(id) {
     return Req.delete("/api/users/" + id);
-  }
-  function _deleteMultipleUser(ids) {
-    return Req.post("/api/users/delete", { ids: ids });
-  }
-  function _changePassword(data) {
-    return Req.post(`/api/changePassword`, data);
   }
   return {
     getAllUser: _getAllUser,
     getUser: _getUser,
     addUser: _addUser,
     editUser: _editUser,
+    resendVerificationCode: _resendVerificationCode,
     deleteUser: _deleteUser,
-    deleteMultipleUser: _deleteMultipleUser,
-    changePassword: _changePassword,
   };
 })();
 export default UserService;

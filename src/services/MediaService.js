@@ -1,8 +1,8 @@
-import Req from "src/interceptors/token-interceptor";
+import Req from "interceptors/TokenInterceptor";
 
 const MediaService = (function () {
   function _upload(file) {
-    var res = new FormData();
+    const res = new FormData();
     res.append("file", file);
     return Req.post("/api/medias", res, {
       headers: {
