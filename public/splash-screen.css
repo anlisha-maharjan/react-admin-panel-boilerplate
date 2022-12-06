@@ -8,7 +8,7 @@
   bottom: 0;
   right: 0;
   backdrop-filter: blur(2px);
-  background-color: rgb(26, 34, 37, 0.98);
+  background-color: rgba(33, 43, 54, 0.8);
   z-index: 99999;
 }
 
